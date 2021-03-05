@@ -1,30 +1,42 @@
 package com.ratryday.controller.employee;
 
-import javax.xml.crypto.Data;
 import java.io.Serializable;
+import java.util.Date;
+
 
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 4059388415027009547L;
 
-    private int id;
+    private int idEmployee;
     private String name;
-    private Data birthday;
+    private Date hiringDate;
     private int experience;
     private String mailingAddress;
+    private int departmentID;
 
     Employee() {
     }
 
-    Employee(String name, Data birthday, int experience, String mailingAddress) {
+    Employee(String name, Date hiringDate, int experience, String mailingAddress, int departmentID) {
         this.name = name;
-        this.birthday = birthday;
+        this.hiringDate = hiringDate;
         this.experience = experience;
         this.mailingAddress = mailingAddress;
+        this.departmentID = departmentID;
     }
 
-    public int getId() {
-        return id;
+    Employee(int idEmployee, String name, Date hiringDate, int experience, String mailingAddress, int departmentID) {
+        this.idEmployee = idEmployee;
+        this.name = name;
+        this.hiringDate = hiringDate;
+        this.experience = experience;
+        this.mailingAddress = mailingAddress;
+        this.departmentID = departmentID;
+    }
+
+    public int getIdEmployee() {
+        return idEmployee;
     }
 
     public String getName() {
@@ -35,12 +47,12 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
-    public Data getBirthday() {
-        return birthday;
+    public Date getHiringDate() {
+        return hiringDate;
     }
 
-    public void setBirthday(Data birthday) {
-        this.birthday = birthday;
+    public void setHiringDate(Date hiringDate) {
+        this.hiringDate = hiringDate;
     }
 
     public int getExperience() {
@@ -59,4 +71,11 @@ public class Employee implements Serializable {
         this.mailingAddress = mailingAddress;
     }
 
+    public int getDepartmentID() {
+        return departmentID;
+    }
+
+    public void setDepartmentID(int departmentID) {
+        this.departmentID = departmentID;
+    }
 }

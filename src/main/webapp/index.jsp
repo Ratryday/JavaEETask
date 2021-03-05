@@ -7,7 +7,7 @@
 </head>
 <body>
 <h2>Department List</h2>
-<p><a href='<c:url value="/create" />'>Create new</a></p>
+<p><a href='<c:url value="/create" />'>Create new</a><a href='<c:url value="/viewEmployee" />'>Employee List</a></p>
 <table>
 <tr><tr>Name</tr></th>
 <c:forEach var="departments" items="${department}">
