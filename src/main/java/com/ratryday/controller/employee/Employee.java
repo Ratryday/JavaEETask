@@ -9,26 +9,26 @@ public class Employee implements Serializable {
     private static final long serialVersionUID = 4059388415027009547L;
 
     private int idEmployee;
-    private String name;
+    private String employeeName;
     private Date hiringDate;
     private int experience;
     private String mailingAddress;
     private int departmentID;
 
-    Employee() {
+    public Employee() {
     }
 
-    Employee(String name, Date hiringDate, int experience, String mailingAddress, int departmentID) {
-        this.name = name;
+    public Employee(String employeeName, Date hiringDate, int experience, String mailingAddress, int departmentID) {
+        this.employeeName = employeeName;
         this.hiringDate = hiringDate;
         this.experience = experience;
         this.mailingAddress = mailingAddress;
         this.departmentID = departmentID;
     }
 
-    Employee(int idEmployee, String name, Date hiringDate, int experience, String mailingAddress, int departmentID) {
+    public Employee(int idEmployee, String employeeName, Date hiringDate, int experience, String mailingAddress, int departmentID) {
         this.idEmployee = idEmployee;
-        this.name = name;
+        this.employeeName = employeeName;
         this.hiringDate = hiringDate;
         this.experience = experience;
         this.mailingAddress = mailingAddress;
@@ -39,12 +39,12 @@ public class Employee implements Serializable {
         return idEmployee;
     }
 
-    public String getName() {
-        return name;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 
     public Date getHiringDate() {

@@ -23,7 +23,9 @@ public class CreateServlet extends HttpServlet {
 
         try {
             String name = request.getParameter("name");
+
             Department department = new Department(name);
+
             DepartmentDB.insert(department);
             response.sendRedirect(request.getContextPath());
         } catch (Exception ex) {

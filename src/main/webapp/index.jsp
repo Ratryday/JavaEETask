@@ -7,7 +7,7 @@
 </head>
 <body>
 <h2>Department List</h2>
-<p><a href='<c:url value="/create" />'>Create new</a><a href='<c:url value="/viewEmployee" />'>Employee List</a></p>
+<p><a href='<c:url value="/create" />'>Create new</a></p>
 <table>
 <tr><tr>Name</tr></th>
 <c:forEach var="departments" items="${department}">
@@ -17,7 +17,8 @@
     <form method="post" action='<c:url value="/delete" />' style="display:inline;">
         <input type="hidden" name="id" value="${departments.id}">
         <input type="submit" value="Delete">
-    </form>
+    </form> |
+    <a href='<c:url value="/employeeList?id=${departments.id}&departmentName=${departments.name}" />'>Employees List</a>
  </td></tr>
 </c:forEach>
 </table>

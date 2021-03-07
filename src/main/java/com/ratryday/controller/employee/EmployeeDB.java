@@ -1,7 +1,5 @@
 package com.ratryday.controller.employee;
 
-import com.ratryday.controller.department.Department;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,9 +71,9 @@ public class EmployeeDB {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-                String sql = "INSERT INTO employee (name, hiringDate, experience, mailingAddress, departmentID) Values (?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO departmentdb.employee (name, hiringDate, experience, mailingAddress, departmentID) Values (?, ?, ?, ?, ?)";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                    preparedStatement.setString(1, employee.getName());
+                    preparedStatement.setString(1, employee.getEmployeeName());
                     preparedStatement.setDate(2, (java.sql.Date) employee.getHiringDate());
                     preparedStatement.setInt(3, employee.getExperience());
                     preparedStatement.setString(4, employee.getMailingAddress());
@@ -97,7 +95,7 @@ public class EmployeeDB {
 
                 String sql = "UPDATE employee SET name = ?, hiringDate = ?, experience = ?, mailingAddress = ?, departmentID = ? WHERE id = ?";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                    preparedStatement.setString(1, employee.getName());
+                    preparedStatement.setString(1, employee.getEmployeeName());
                     preparedStatement.setDate(2, (java.sql.Date) employee.getHiringDate());
                     preparedStatement.setInt(3, employee.getExperience());
                     preparedStatement.setString(4, employee.getMailingAddress());

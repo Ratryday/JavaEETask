@@ -9,7 +9,6 @@
 <form method="post">
 <label>Name</label><br>
 <input name="name"/><br><br>
-<label>Save Department</label><br>
 <input type="submit" value="Save" />
 </form>
 </body>
