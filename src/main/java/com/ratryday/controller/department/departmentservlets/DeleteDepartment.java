@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/delete")
-public class DeleteServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+public class DeleteDepartment extends HttpServlet {
+    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
+            int id = Integer.parseInt(httpServletRequest.getParameter("id"));
             DepartmentDB.delete(id);
-            response.sendRedirect(request.getContextPath());
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
         } catch (Exception ex) {
-            getServletContext().getRequestDispatcher("/notfound.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/notfound.jsp").forward(httpServletRequest, httpServletResponse);
         }
     }
 }

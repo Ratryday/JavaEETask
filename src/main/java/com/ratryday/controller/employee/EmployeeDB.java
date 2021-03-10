@@ -2,36 +2,37 @@ package com.ratryday.controller.employee;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class EmployeeDB {
     private static String url = "jdbc:mysql://localhost/departmentdb?serverTimezone=Europe/Moscow&useSSL=false";
     private static String username = "root";
     private static String password = "root";
 
-    public static ArrayList<Employee> select() {
-
+    public static ArrayList<Employee> select(int id) {
         ArrayList<Employee> employees = new ArrayList<Employee>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM employee");
-                while (resultSet.next()) {
+                String sql = "SELECT * FROM departmentdb.employee WHERE departmentID=?";
+                try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                    preparedStatement.setInt(1, id);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
 
-                    int idEmployee = resultSet.getInt(1);
-                    String name = resultSet.getString(2);
-                    Date hiringDate = resultSet.getDate(3);
-                    int experience = resultSet.getInt(4);
-                    String mailingAddress = resultSet.getString(5);
-                    int departmentID = resultSet.getInt(6);
-                    Employee employee = new Employee(idEmployee, name, hiringDate, experience, mailingAddress, departmentID);
-                    employees.add(employee);
+                        int idEmployee = resultSet.getInt(1);
+                        String name = resultSet.getString(2);
+                        Date hiringDate = resultSet.getDate(3);
+                        int experience = resultSet.getInt(4);
+                        String mailingAddress = resultSet.getString(5);
+                        int departmentID = resultSet.getInt(6);
+                        Employee employee = new Employee(idEmployee, name, hiringDate, experience, mailingAddress, departmentID);
+                        employees.add(employee);
+                    }
                 }
             }
         } catch (Exception ex) {
-            System.out.println( ex);
+            System.out.println(ex);
         }
         return employees;
     }
@@ -111,15 +112,16 @@ public class EmployeeDB {
         return 0;
     }
 
-    public static int delete(int id) {
+    public static int delete(int idEmployee, int departmentID) {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-                String sql = "DELETE FROM employee WHERE id = ?";
+                String sql = "DELETE FROM employee WHERE idEmployee = ? AND departmentID = ?";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                    preparedStatement.setInt(1, id);
+                    preparedStatement.setInt(1, idEmployee);
+                    preparedStatement.setInt(2, departmentID);
 
                     return preparedStatement.executeUpdate();
                 }

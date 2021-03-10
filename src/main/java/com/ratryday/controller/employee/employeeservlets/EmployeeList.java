@@ -17,9 +17,9 @@ public class EmployeeList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        ArrayList<Employee> employees = EmployeeDB.select();
         String departmentsName = request.getParameter("departmentName");
         int departmentID = Integer.parseInt(request.getParameter("id"));
+        ArrayList<Employee> employees = EmployeeDB.select(departmentID);
         request.setAttribute("employee", employees);
         request.setAttribute("departmentsName", departmentsName);
         request.setAttribute("departmentID", departmentID);

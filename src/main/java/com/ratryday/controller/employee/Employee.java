@@ -1,7 +1,7 @@
 package com.ratryday.controller.employee;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 
 public class Employee implements Serializable {

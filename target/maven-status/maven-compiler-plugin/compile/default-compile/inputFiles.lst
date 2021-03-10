@@ -1,8 +1,12 @@
+D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\employee\employeeservlets\DeleteEmployee.java
 D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\department\Department.java
-D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\department\departmentservlets\EditServlet.java
 D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\employee\Employee.java
+D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\employee\employeeservlets\EmployeeList.java
+D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\department\departmentservlets\Index.java
+D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\department\departmentservlets\DeleteDepartment.java
+D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\department\departmentservlets\CreateDepartment.java
 D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\department\DepartmentDB.java
-D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\department\departmentservlets\IndexServlet.java
-D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\department\departmentservlets\DeleteServlet.java
+D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\employee\employeeservlets\EditEmployee.java
+D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\department\departmentservlets\EditDepartment.java
 D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\employee\EmployeeDB.java
-D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\department\departmentservlets\CreateServlet.java
+D:\Java\Projects\JavaEETest\src\main\java\com\ratryday\controller\employee\employeeservlets\CreateEmployee.java

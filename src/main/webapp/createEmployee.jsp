@@ -15,7 +15,7 @@
 <input type="number" name="experience"/><br><br>
 <label>Mailing Address</label><br>
 <input type="text" name="mailingAddress"/><br><br>
-<input type="hidden" name="departmentID" value="${departmentID}"/><br><br>
+<input type="hidden" name="departmentID" value="${param.id}"/><br><br>
 <input type="submit" value="Save" />
 </form>
 </body>

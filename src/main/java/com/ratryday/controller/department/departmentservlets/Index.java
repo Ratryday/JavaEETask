@@ -12,13 +12,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @WebServlet("")
-public class IndexServlet extends HttpServlet {
+public class Index extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         ArrayList<Department> department = DepartmentDB.select();
-        request.setAttribute("department", department);
+        httpServletRequest.setAttribute("department", department);
 
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/index.jsp").forward(httpServletRequest, httpServletResponse);
     }
 
 }

@@ -9,7 +9,7 @@
 <h2>Department List</h2>
 <p><a href='<c:url value="/create" />'>Create new</a></p>
 <table>
-<tr><tr>Name</tr></th>
+<tr><th>Name</th></tr>
 <c:forEach var="departments" items="${department}">
  <tr><td>${departments.name}</td>
     <td>

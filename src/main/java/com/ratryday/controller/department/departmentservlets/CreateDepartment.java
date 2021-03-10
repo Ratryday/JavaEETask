@@ -11,26 +11,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/create")
-public class CreateServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+public class CreateDepartment extends HttpServlet {
+    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
-        getServletContext().getRequestDispatcher("/create.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/create.jsp").forward(httpServletRequest, httpServletResponse);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
         try {
-            String name = request.getParameter("name");
+            String name = httpServletRequest.getParameter("name");
 
             Department department = new Department(name);
 
             DepartmentDB.insert(department);
-            response.sendRedirect(request.getContextPath());
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
         } catch (Exception ex) {
 
-            getServletContext().getRequestDispatcher("/create.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/create.jsp").forward(httpServletRequest, httpServletResponse);
         }
     }
 }

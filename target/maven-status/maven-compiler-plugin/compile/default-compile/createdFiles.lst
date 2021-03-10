@@ -1,8 +1,12 @@
 com\ratryday\controller\employee\EmployeeDB.class
-com\ratryday\controller\department\departmentservlets\CreateServlet.class
+com\ratryday\controller\department\departmentservlets\DeleteDepartment.class
 com\ratryday\controller\employee\Employee.class
 com\ratryday\controller\department\Department.class
-com\ratryday\controller\department\departmentservlets\EditServlet.class
-com\ratryday\controller\department\departmentservlets\IndexServlet.class
-com\ratryday\controller\department\departmentservlets\DeleteServlet.class
+com\ratryday\controller\employee\employeeservlets\EmployeeList.class
+com\ratryday\controller\department\departmentservlets\Index.class
+com\ratryday\controller\department\departmentservlets\CreateDepartment.class
+com\ratryday\controller\department\departmentservlets\EditDepartment.class
+com\ratryday\controller\employee\employeeservlets\EditEmployee.class
+com\ratryday\controller\employee\employeeservlets\CreateEmployee.class
 com\ratryday\controller\department\DepartmentDB.class
+com\ratryday\controller\employee\employeeservlets\DeleteEmployee.class
