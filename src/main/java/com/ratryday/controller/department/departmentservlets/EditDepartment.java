@@ -12,6 +12,7 @@ import java.io.IOException;
 
 @WebServlet("/edit")
 public class EditDepartment extends HttpServlet {
+    private static final long serialVersionUID = -673932636673914989L;
 
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
@@ -40,7 +41,6 @@ public class EditDepartment extends HttpServlet {
             DepartmentDB.update(department);
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "");
         } catch (Exception ex) {
-
             getServletContext().getRequestDispatcher("/notfound.jsp").forward(httpServletRequest, httpServletResponse);
         }
     }

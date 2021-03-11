@@ -6,7 +6,7 @@
 <title>Employee List</title>
 </head>
 <body>
-<h2>${departmentsName} Employee</h2>
+<h2>${departmentName} Employee</h2>
 <p><a href='<c:url value="/createEmployee?id=${departmentID}&departmentName=${departmentName}" />'>Create new</a></p>
 <table>
 <tr><th>Name</th><th>Hiring Date</th><th>Experience</th><th>Mailing Address</th><th></th></tr>
@@ -16,7 +16,7 @@
             <td>${employees.experience}</td>
                     <td>${employees.mailingAddress}</td>
                         <td>
-    <a href='<c:url value="/editEmployee?id=${employees.idEmployee}" />'>Edit</a> |
+    <a href='<c:url value="/editEmployee?id=${employees.idEmployee}&departmentID=${departmentID}" />'>Edit</a> |
     <form method="post" action='<c:url value="/deleteEmployee" />' style="display:inline;">
         <input type="hidden" name="idEmployee" value="${employees.idEmployee}">
         <input type="hidden" name="departmentID" value="${departmentID}">

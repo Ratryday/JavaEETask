@@ -11,6 +11,8 @@ import java.io.IOException;
 
 @WebServlet("/delete")
 public class DeleteDepartment extends HttpServlet {
+    private static final long serialVersionUID = 4135431999742926051L;
+
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 

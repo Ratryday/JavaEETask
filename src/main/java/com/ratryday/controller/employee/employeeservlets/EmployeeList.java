@@ -13,17 +13,18 @@ import java.util.ArrayList;
 
 @WebServlet("/employeeList")
 public class EmployeeList extends HttpServlet {
+    private static final long serialVersionUID = 8130011401819399469L;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
 
-        String departmentsName = request.getParameter("departmentName");
-        int departmentID = Integer.parseInt(request.getParameter("id"));
+        String departmentsName = httpServletRequest.getParameter("departmentName");
+        int departmentID = Integer.parseInt(httpServletRequest.getParameter("id"));
         ArrayList<Employee> employees = EmployeeDB.select(departmentID);
-        request.setAttribute("employee", employees);
-        request.setAttribute("departmentsName", departmentsName);
-        request.setAttribute("departmentID", departmentID);
+        httpServletRequest.setAttribute("employee", employees);
+        httpServletRequest.setAttribute("departmentName", departmentsName);
+        httpServletRequest.setAttribute("departmentID", departmentID);
 
-        getServletContext().getRequestDispatcher("/employeeList.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/employeeList.jsp").forward(httpServletRequest, httpServletResponse);
     }
 }

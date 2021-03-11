@@ -12,6 +12,8 @@ import java.io.IOException;
 
 @WebServlet("/create")
 public class CreateDepartment extends HttpServlet {
+    private static final long serialVersionUID = 7038334119164896401L;
+
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 

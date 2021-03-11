@@ -38,13 +38,12 @@ public class EmployeeDB {
     }
 
     public static Employee selectOne(int id) {
-
         Employee employee = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-                String sql = "SELECT * FROM employee WHERE id=?";
+                String sql = "SELECT * FROM departmentdb.employee WHERE idEmployee=?";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                     preparedStatement.setInt(1, id);
                     ResultSet resultSet = preparedStatement.executeQuery();
@@ -94,8 +93,9 @@ public class EmployeeDB {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-                String sql = "UPDATE employee SET name = ?, hiringDate = ?, experience = ?, mailingAddress = ?, departmentID = ? WHERE id = ?";
+                String sql = "UPDATE departmentdb.employee SET name = ?, hiringDate = ?, experience = ?, mailingAddress = ?, departmentID = ? WHERE idEmployee = ?";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
                     preparedStatement.setString(1, employee.getEmployeeName());
                     preparedStatement.setDate(2, (java.sql.Date) employee.getHiringDate());
                     preparedStatement.setInt(3, employee.getExperience());

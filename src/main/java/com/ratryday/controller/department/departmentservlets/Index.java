@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 @WebServlet("")
 public class Index extends HttpServlet {
+    private static final long serialVersionUID = -2434980003597933186L;
 
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         ArrayList<Department> department = DepartmentDB.select();
