@@ -38,15 +38,24 @@ public class EditDepartment extends HttpServlet {
         try {
             String name = httpServletRequest.getParameter("name");
             int id = Integer.parseInt(httpServletRequest.getParameter("id"));
-            if(Validator.departmentNameValidator(name)) {
+            if (Validator.departmentNameValidator(name)) {
                 Department department = new Department(id, name);
                 DepartmentDB.update(department);
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "");
             } else {
-                Department department = DepartmentDB.selectOne(name);
+                String errorMassage = "Департамент с таким именем уже есть";
+                System.out.println(errorMassage);
+                Department department = new Department(id, name);
                 httpServletRequest.setAttribute("department", department);
                 getServletContext().getRequestDispatcher("/edit.jsp").forward(httpServletRequest, httpServletResponse);
             }
+        } catch (NullPointerException ex) {
+            String errorMassage = "У департамента должно быть имя";
+            System.out.println(errorMassage);
+            int id = Integer.parseInt(httpServletRequest.getParameter("id"));
+            Department department = new Department(id, null);
+            httpServletRequest.setAttribute("department", department);
+            getServletContext().getRequestDispatcher("/edit.jsp").forward(httpServletRequest, httpServletResponse);
         } catch (Exception ex) {
             getServletContext().getRequestDispatcher("/edit.jsp").forward(httpServletRequest, httpServletResponse);
         }

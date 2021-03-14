@@ -1,5 +1,6 @@
 package com.ratryday.controller.department.departmentservlets;
 
+import com.ratryday.controller.Validator;
 import com.ratryday.controller.department.Department;
 import com.ratryday.controller.department.DepartmentDB;
 
@@ -16,7 +17,6 @@ public class CreateDepartment extends HttpServlet {
 
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
-
         getServletContext().getRequestDispatcher("/create.jsp").forward(httpServletRequest, httpServletResponse);
     }
 
@@ -25,13 +25,20 @@ public class CreateDepartment extends HttpServlet {
 
         try {
             String name = httpServletRequest.getParameter("name");
-
-            Department department = new Department(name);
-
-            DepartmentDB.insert(department);
-            httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
+            if (Validator.departmentNameValidator(name)) {
+                Department department = new Department(name);
+                DepartmentDB.insert(department);
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
+            } else {
+                String errorMassage = "Департамент с таким именем уже есть";
+                System.out.println(errorMassage);
+                httpServletRequest.setAttribute("name", name);
+                getServletContext().getRequestDispatcher("/create.jsp").forward(httpServletRequest, httpServletResponse);
+            }
+        } catch (NullPointerException ex) {
+            System.err.println(ex);
+            getServletContext().getRequestDispatcher("/create.jsp").forward(httpServletRequest, httpServletResponse);
         } catch (Exception ex) {
-
             getServletContext().getRequestDispatcher("/create.jsp").forward(httpServletRequest, httpServletResponse);
         }
     }
