@@ -1,5 +1,6 @@
 package com.ratryday.controller.department.departmentservlets;
 
+import com.ratryday.controller.Validator;
 import com.ratryday.controller.department.Department;
 import com.ratryday.controller.department.DepartmentDB;
 
@@ -35,13 +36,19 @@ public class EditDepartment extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            int id = Integer.parseInt(httpServletRequest.getParameter("id"));
             String name = httpServletRequest.getParameter("name");
-            Department department = new Department(id, name);
-            DepartmentDB.update(department);
-            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "");
+            int id = Integer.parseInt(httpServletRequest.getParameter("id"));
+            if(Validator.departmentNameValidator(name)) {
+                Department department = new Department(id, name);
+                DepartmentDB.update(department);
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "");
+            } else {
+                Department department = DepartmentDB.selectOne(name);
+                httpServletRequest.setAttribute("department", department);
+                getServletContext().getRequestDispatcher("/edit.jsp").forward(httpServletRequest, httpServletResponse);
+            }
         } catch (Exception ex) {
-            getServletContext().getRequestDispatcher("/notfound.jsp").forward(httpServletRequest, httpServletResponse);
+            getServletContext().getRequestDispatcher("/edit.jsp").forward(httpServletRequest, httpServletResponse);
         }
     }
 }

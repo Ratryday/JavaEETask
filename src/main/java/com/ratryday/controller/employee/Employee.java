@@ -18,6 +18,10 @@ public class Employee implements Serializable {
     public Employee() {
     }
 
+    public Employee(String mailingAddress) {
+        this.mailingAddress = mailingAddress;
+    }
+
     public Employee(String employeeName, Date hiringDate, int experience, String mailingAddress, int departmentID) {
         this.employeeName = employeeName;
         this.hiringDate = hiringDate;

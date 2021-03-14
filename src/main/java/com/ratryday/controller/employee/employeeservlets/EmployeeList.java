@@ -1,5 +1,7 @@
 package com.ratryday.controller.employee.employeeservlets;
 
+import com.ratryday.controller.department.Department;
+import com.ratryday.controller.department.DepartmentDB;
 import com.ratryday.controller.employee.Employee;
 import com.ratryday.controller.employee.EmployeeDB;
 
@@ -18,12 +20,13 @@ public class EmployeeList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
 
-        String departmentsName = httpServletRequest.getParameter("departmentName");
         int departmentID = Integer.parseInt(httpServletRequest.getParameter("id"));
-        ArrayList<Employee> employees = EmployeeDB.select(departmentID);
-        httpServletRequest.setAttribute("employee", employees);
-        httpServletRequest.setAttribute("departmentName", departmentsName);
-        httpServletRequest.setAttribute("departmentID", departmentID);
+
+        Department department = DepartmentDB.selectOne(departmentID);
+        ArrayList<Employee> employee = EmployeeDB.select(departmentID);
+
+        httpServletRequest.setAttribute("employee", employee);
+        httpServletRequest.setAttribute("department", department);
 
         getServletContext().getRequestDispatcher("/employeeList.jsp").forward(httpServletRequest, httpServletResponse);
     }

@@ -21,16 +21,16 @@ public class EditEmployee extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         try {
-            int id = Integer.parseInt(httpServletRequest.getParameter("id"));
+            int idEmployee = Integer.parseInt(httpServletRequest.getParameter("idEmployee"));
             int departmentID = Integer.parseInt(httpServletRequest.getParameter("departmentID"));
-            Employee employee = EmployeeDB.selectOne(id);
-            ArrayList<Department> department = DepartmentDB.select();
-            Department departmentName = DepartmentDB.selectOne(departmentID);
+            Department department = DepartmentDB.selectOne(departmentID);
+            Employee employee = EmployeeDB.selectOne(idEmployee);
+            ArrayList<Department> departments = DepartmentDB.select();
 
             if (employee != null) {
                 httpServletRequest.setAttribute("employee", employee);
                 httpServletRequest.setAttribute("department", department);
-                httpServletRequest.setAttribute("departmentName", departmentName);
+                httpServletRequest.setAttribute("departments", departments);
                 getServletContext().getRequestDispatcher("/editEmployee.jsp").forward(httpServletRequest, httpServletResponse);
             } else {
                 getServletContext().getRequestDispatcher("/notfound.jsp").forward(httpServletRequest, httpServletResponse);
@@ -58,15 +58,16 @@ public class EditEmployee extends HttpServlet {
 
             int departmentID = Integer.parseInt(httpServletRequest.getParameter("departmentId"));
 
-            String departmentName = httpServletRequest.getParameter("departmentName");
-
+            int oldDepartmentID = Integer.parseInt(httpServletRequest.getParameter("oldDepartmentID"));
+            System.out.println("DepID = " + " OldDepID = ");
             Employee employee = new Employee(id, employeeName, convertedToSQLHiringDate, experience, mailingAddress, departmentID);
             EmployeeDB.update(employee);
 
-            ArrayList<Employee> employees = EmployeeDB.select(departmentID);
+            Department oldDepartment = DepartmentDB.selectOne(oldDepartmentID);
+            ArrayList<Employee> employees = EmployeeDB.select(oldDepartmentID);
+
             httpServletRequest.setAttribute("employee", employees);
-            httpServletRequest.setAttribute("departmentName", departmentName);
-            httpServletRequest.setAttribute("departmentID", departmentID);
+            httpServletRequest.setAttribute("department", oldDepartment);
 
             getServletContext().getRequestDispatcher("/employeeList.jsp").forward(httpServletRequest, httpServletResponse);
         } catch (Exception ex){

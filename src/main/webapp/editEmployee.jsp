@@ -1,32 +1,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Edit Employee</title>
+    <title>Редактирование сотрудника</title>
 </head>
 <body>
-    <h3>Edit Employee</h3>
-    <form method="post">
-        <label>Name</label><br>
+    <h3>Редактирование сотрудника</h3>
+    <form method="post" style="display:inline;">
+        <label>Имя</label><br>
         <input name="name" value="${employee.employeeName}" /><br>
-        <label>Hiring Date</label><br>
+        <label>Дата найма</label><br>
         <input type="date" name="hiringDate" value="${employee.hiringDate}" /><br>
-        <label>Experience</label><br>
+        <label>Опыт работы</label><br>
         <input name="experience" value="${employee.experience}" /><br>
-        <label>Mailing Address</label><br>
+        <label>Почтовый адрес</label><br>
         <input name="mailingAddress" value="${employee.mailingAddress}" /><br>
-        <label>Department</label><br>
-        <select name="departmentId" >
-           <c:forEach items="${department}" var="departments">
-               <option value="${departments.id}">${departments.name}</option>
+        <label>Департамент</label><br>
+        <select name="departmentId">
+        <option selected value="${department.id}" hidden="">${department.name}</option>
+           <c:forEach items="${departments}" var="dep">
+               <option value="${dep.id}">${dep.name}</option>
             </c:forEach>
         </select>
         <input type="hidden" name="idEmployee" value="${employee.idEmployee}"/><br>
-        <input type="hidden" name="departmentName" value="${departmentName.name}"/><br>
-        <input type="hidden" name="departmentID" value="${departmentID}"/>
-
-        <input type="submit" value="Send" />
-    </form>
+        <input type="hidden" name="oldDepartmentID" value="${department.id}"/><br><br>
+        <input type="submit" value="Сохранить" />
+    </form> |
+    <input type="button" onclick="history.back();" value="Отмена"/>
 </body>
 </html>

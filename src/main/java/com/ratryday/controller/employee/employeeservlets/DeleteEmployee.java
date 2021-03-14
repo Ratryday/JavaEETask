@@ -24,8 +24,9 @@ public class DeleteEmployee extends HttpServlet {
             String departmentName = httpServletRequest.getParameter("departmentName");
             EmployeeDB.delete(idEmployee, departmentID);
 
-            ArrayList<Employee> employees = EmployeeDB.select(departmentID);
-            httpServletRequest.setAttribute("employee", employees);
+            ArrayList<Employee> employee = EmployeeDB.select(departmentID);
+
+            httpServletRequest.setAttribute("employee", employee);
             httpServletRequest.setAttribute("departmentID", departmentID);
             httpServletRequest.setAttribute("departmentName", departmentName);
 

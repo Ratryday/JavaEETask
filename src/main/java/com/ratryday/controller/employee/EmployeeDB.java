@@ -65,6 +65,28 @@ public class EmployeeDB {
         return employee;
     }
 
+    public static Employee selectOne(String mail) {
+        Employee employee = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+                String sql = "SELECT * FROM departmentdb.employee WHERE mailingAddress=?";
+                try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                    preparedStatement.setString(1, mail);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    if (resultSet.next()) {
+                        String mailingAddress = resultSet.getString(5);
+                        employee = new Employee(mailingAddress);
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return employee;
+    }
+
     public static int insert(Employee employee) {
 
         try {

@@ -1,5 +1,6 @@
 package com.ratryday.controller.employee.employeeservlets;
 
+import com.ratryday.controller.Validator;
 import com.ratryday.controller.employee.Employee;
 import com.ratryday.controller.employee.EmployeeDB;
 
@@ -39,18 +40,25 @@ public class CreateEmployee extends HttpServlet {
             int departmentID = Integer.parseInt(httpServletRequest.getParameter("departmentID"));
 
             String departmentName = httpServletRequest.getParameter("departmentName");
+            if(Validator.employeeMailingAddressValidator(mailingAddress)) {
+                Employee employee = new Employee(employeeName, convertedToSQLHiringDate, experience, mailingAddress, departmentID);
 
-            Employee employee = new Employee(employeeName, convertedToSQLHiringDate, experience, mailingAddress, departmentID);
+                EmployeeDB.insert(employee);
 
-            EmployeeDB.insert(employee);
+                ArrayList<Employee> employees = EmployeeDB.select(departmentID);
+                httpServletRequest.setAttribute("employee", employees);
+                httpServletRequest.setAttribute("departmentName", departmentName);
+                httpServletRequest.setAttribute("departmentID", departmentID);
 
-            ArrayList<Employee> employees = EmployeeDB.select(departmentID);
-            httpServletRequest.setAttribute("employee", employees);
-            httpServletRequest.setAttribute("departmentName", departmentName);
-            httpServletRequest.setAttribute("departmentID", departmentID);
+                getServletContext().getRequestDispatcher("/employeeList.jsp").forward(httpServletRequest, httpServletResponse);
+            } else {
+                ArrayList<Employee> employees = EmployeeDB.select(departmentID);
+                httpServletRequest.setAttribute("employee", employees);
+                httpServletRequest.setAttribute("departmentName", departmentName);
+                httpServletRequest.setAttribute("departmentID", departmentID);
 
-            getServletContext().getRequestDispatcher("/employeeList.jsp").forward(httpServletRequest, httpServletResponse);
-
+                getServletContext().getRequestDispatcher("/createEmployee.jsp").forward(httpServletRequest, httpServletResponse);
+            }
         } catch (Exception ex) {
             getServletContext().getRequestDispatcher("/createEmployee.jsp").forward(httpServletRequest, httpServletResponse);
         }

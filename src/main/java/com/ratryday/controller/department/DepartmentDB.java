@@ -26,7 +26,7 @@ public class DepartmentDB {
                 }
             }
         } catch (Exception ex) {
-            System.err.println( ex);
+            System.err.println(ex);
         }
         return departments;
     }
@@ -39,6 +39,28 @@ public class DepartmentDB {
                 String sql = "SELECT * FROM department WHERE id=?";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                     preparedStatement.setInt(1, id);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    if (resultSet.next()) {
+                        int departmentId = resultSet.getInt(1);
+                        String name = resultSet.getString(2);
+                        department = new Department(departmentId, name);
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return department;
+    }
+
+    public static Department selectOne(String departmentName) {
+        Department department = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                String sql = "SELECT * FROM department WHERE name=?";
+                try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                    preparedStatement.setString(1, departmentName);
                     ResultSet resultSet = preparedStatement.executeQuery();
                     if (resultSet.next()) {
                         int departmentId = resultSet.getInt(1);

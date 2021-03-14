@@ -1,24 +1,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Department</title>
+<title>Департаменты</title>
 </head>
 <body>
-<h2>Department List</h2>
-<p><a href='<c:url value="/create" />'>Create new</a></p>
+<h2>Список департаментов</h2>
+ <form method="get" action='<c:url value="/create" />'>
+        <input type="submit" value="Добавить">
+    </form>
 <table>
-<tr><th>Name</th></tr>
+<tr><th>Название</th></tr>
 <c:forEach var="departments" items="${department}">
  <tr><td>${departments.name}</td>
     <td>
-    <a href='<c:url value="/edit?id=${departments.id}" />'>Edit</a> |
+    <form method="get" action='<c:url value="/edit" />' style="display:inline;">
+        <input type="hidden" name="id" value="${departments.id}">
+        <input type="submit" value="Редактировать">
+    </form> |
     <form method="post" action='<c:url value="/delete" />' style="display:inline;">
         <input type="hidden" name="id" value="${departments.id}">
-        <input type="submit" value="Delete">
+        <input type="submit" value="Удалить">
     </form> |
-    <a href='<c:url value="/employeeList?id=${departments.id}&departmentName=${departments.name}" />'>Employees List</a>
+    <form method="get" action='<c:url value="/employeeList" />' style="display:inline;">
+        <input type="hidden" name="id" value="${departments.id}">
+        <input type="submit" value="Список сотрудников">
+    </form>
  </td></tr>
 </c:forEach>
 </table>
