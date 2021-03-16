@@ -7,13 +7,15 @@ import com.ratryday.controller.employee.Employee;
 
 
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Validator {
 
     public static boolean departmentNameValidator(String departmentName) {
         if (departmentName != null) {
-            if (departmentName == ""){
+            if (departmentName == "") {
                 throw new NullPointerException("У департамента должно быть имя");
             }
             Department department = DepartmentDB.selectOne(departmentName);
@@ -22,39 +24,43 @@ public class Validator {
         return false;
     }
 
-    public static int[] employeeMailingAddressValidator(String employeeName, Date employeeHiringDate, Integer employeeExperience, String employeeMailingAddress) {
-        int[] employeeValidator = {1,1,1,1};
+    public static boolean isValidator(String employeeName, Date employeeHiringDate, Integer employeeExperience, String employeeMailingAddress) {
+        boolean isValid = true;
         if (employeeName != null) {
             if (employeeName == "") {
-                employeeValidator[1] = 0;
+                isValid = false;
             }
         } else {
-            employeeValidator[1] = 0;
+            isValid = false;
         }
 
         if (employeeHiringDate == null) {
-            employeeValidator[2] = 0;
+            isValid = false;
         }
 
         if (employeeExperience == null) {
-            employeeValidator[3] = 0;
+            if (employeeExperience >= 0) {
+                isValid = false;
+            }
         }
 
         if (employeeMailingAddress != null) {
             if (employeeMailingAddress == "") {
-                employeeValidator[4] = 0;
-            }
-            Pattern mailingAddress = Pattern.compile("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
-            if (mailingAddress.matcher(employeeMailingAddress).matches()) {
-                Employee employee = EmployeeDB.selectOne(employeeMailingAddress);
-                if (employee == null) {
-                    employeeValidator[4] = 1;
+                isValid = false;
+            } else {
+                Pattern mailingAddress = Pattern.compile("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
+                if (mailingAddress.matcher(employeeMailingAddress).matches()) {
+                    Employee employee = EmployeeDB.selectOne(employeeMailingAddress);
+                    if (employee != null) {
+                        isValid = false;
+                    }
                 } else {
-                    employeeValidator[4] = -1;
+                    isValid = false;
                 }
             }
+        } else {
+            isValid = false;
         }
-
-        return employeeValidator;
+        return isValid;
     }
 }

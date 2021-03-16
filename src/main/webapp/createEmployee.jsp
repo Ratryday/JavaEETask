@@ -16,7 +16,7 @@
         <input name="experience" value="${employee.experience}" /><br><br>
         <label>Почтовый адрес</label><br>
         <input name="mailingAddress" value="${employee.mailingAddress}" /><br><br>
-        <input type="hidden" name="departmentID" value="${param.id}"/><br><br>
+        <input type="hidden" name="departmentID" value="${departmentID}"/><br><br>
         <input type="submit" value="Добавить" />
     </form> |
     <input type="button" onclick="history.back();" value="Отмена"/>

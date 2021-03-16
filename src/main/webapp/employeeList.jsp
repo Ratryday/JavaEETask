@@ -10,7 +10,7 @@
 <h2>Список сотрудников ${department.name}</h2>
     <form method="get" action='<c:url value="/createEmployee" />' style="display:inline;">
         <input type="hidden" name="departmentName" value="${department.name}">
-        <input type="hidden" name="id" value="${department.id}">
+        <input type="hidden" name="departmentID" value="${department.id}">
         <input type="submit" value="Добавить">
     </form> |
     <form method="get" action='<c:url value="/" />' style="display:inline;">
@@ -32,7 +32,7 @@
     <form method="post" action='<c:url value="/deleteEmployee" />' style="display:inline;">
         <input type="hidden" name="idEmployee" value="${employees.idEmployee}">
         <input type="hidden" name="departmentID" value="${department.id}">
-        <input type="hidden" name="departmentName" value="${departmentName}">
+        <input type="hidden" name="departmentName" value="${department.name}">
         <input type="submit" value="Удалить">
     </form>
  </td></tr>

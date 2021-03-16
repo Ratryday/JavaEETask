@@ -1,5 +1,6 @@
 package com.ratryday.controller.employee.employeeservlets;
 
+import com.ratryday.controller.Validator;
 import com.ratryday.controller.department.Department;
 import com.ratryday.controller.department.DepartmentDB;
 import com.ratryday.controller.employee.Employee;
@@ -47,29 +48,47 @@ public class EditEmployee extends HttpServlet {
 
             String employeeName = httpServletRequest.getParameter("name");
 
-            String hiringDate = httpServletRequest.getParameter("hiringDate");
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date convertedHiringDate = simpleDateFormat.parse(hiringDate);
-            java.sql.Date convertedToSQLHiringDate = new java.sql.Date(convertedHiringDate.getTime());
+            String hiringDate = null;
+            java.sql.Date convertedToSQLHiringDate = null;
+            if (!httpServletRequest.getParameter("hiringDate").isEmpty()) {
+                hiringDate = httpServletRequest.getParameter("hiringDate");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date convertedHiringDate = simpleDateFormat.parse(hiringDate);
+                convertedToSQLHiringDate = new java.sql.Date(convertedHiringDate.getTime());
+            }
 
-            int experience = Integer.parseInt(httpServletRequest.getParameter("experience"));
+            Integer experience = null;
+            if (!httpServletRequest.getParameter("experience").isEmpty()) {
+                experience = Integer.parseInt(httpServletRequest.getParameter("experience"));
+            }
 
             String mailingAddress = httpServletRequest.getParameter("mailingAddress");
 
             int departmentID = Integer.parseInt(httpServletRequest.getParameter("departmentId"));
 
             int oldDepartmentID = Integer.parseInt(httpServletRequest.getParameter("oldDepartmentID"));
-            System.out.println("DepID = " + " OldDepID = ");
-            Employee employee = new Employee(id, employeeName, convertedToSQLHiringDate, experience, mailingAddress, departmentID);
-            EmployeeDB.update(employee);
 
-            Department oldDepartment = DepartmentDB.selectOne(oldDepartmentID);
-            ArrayList<Employee> employees = EmployeeDB.select(oldDepartmentID);
+            if (Validator.isValidator(employeeName, convertedToSQLHiringDate, experience, mailingAddress)) {
+                Employee employee = new Employee(id, employeeName, convertedToSQLHiringDate, experience, mailingAddress, departmentID);
+                EmployeeDB.update(employee);
+                Department oldDepartment = DepartmentDB.selectOne(oldDepartmentID);
+                ArrayList<Employee> employees = EmployeeDB.select(oldDepartmentID);
 
-            httpServletRequest.setAttribute("employee", employees);
-            httpServletRequest.setAttribute("department", oldDepartment);
+                httpServletRequest.setAttribute("employee", employees);
+                httpServletRequest.setAttribute("department", oldDepartment);
 
-            getServletContext().getRequestDispatcher("/employeeList.jsp").forward(httpServletRequest, httpServletResponse);
+                getServletContext().getRequestDispatcher("/employeeList.jsp").forward(httpServletRequest, httpServletResponse);
+            } else {
+                Employee employee = new Employee(employeeName, convertedToSQLHiringDate, experience, mailingAddress, departmentID);
+                Department department = DepartmentDB.selectOne(departmentID);
+                ArrayList<Department> departments = DepartmentDB.select();
+
+                httpServletRequest.setAttribute("employee", employee);
+                httpServletRequest.setAttribute("department", department);
+                httpServletRequest.setAttribute("departments", departments);
+                getServletContext().getRequestDispatcher("/editEmployee.jsp").forward(httpServletRequest, httpServletResponse);
+            }
+
         } catch (Exception ex){
             getServletContext().getRequestDispatcher("/notfound.jsp").forward(httpServletRequest, httpServletResponse);
         }

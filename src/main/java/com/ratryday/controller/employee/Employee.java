@@ -11,7 +11,7 @@ public class Employee implements Serializable {
     private int idEmployee;
     private String employeeName;
     private Date hiringDate;
-    private int experience;
+    private Integer experience;
     private String mailingAddress;
     private int departmentID;
 
@@ -22,7 +22,7 @@ public class Employee implements Serializable {
         this.mailingAddress = mailingAddress;
     }
 
-    public Employee(String employeeName, Date hiringDate, int experience, String mailingAddress, int departmentID) {
+    public Employee(String employeeName, Date hiringDate, Integer experience, String mailingAddress, int departmentID) {
         this.employeeName = employeeName;
         this.hiringDate = hiringDate;
         this.experience = experience;
@@ -30,7 +30,7 @@ public class Employee implements Serializable {
         this.departmentID = departmentID;
     }
 
-    public Employee(int idEmployee, String employeeName, Date hiringDate, int experience, String mailingAddress, int departmentID) {
+    public Employee(int idEmployee, String employeeName, Date hiringDate, Integer experience, String mailingAddress, int departmentID) {
         this.idEmployee = idEmployee;
         this.employeeName = employeeName;
         this.hiringDate = hiringDate;
@@ -59,11 +59,11 @@ public class Employee implements Serializable {
         this.hiringDate = hiringDate;
     }
 
-    public int getExperience() {
+    public Integer getExperience() {
         return experience;
     }
 
-    public void setExperience(int experience) {
+    public void setExperience(Integer experience) {
         this.experience = experience;
     }
 
