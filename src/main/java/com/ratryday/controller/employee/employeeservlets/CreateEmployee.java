@@ -22,7 +22,13 @@ public class CreateEmployee extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/createEmployee.jsp").forward(httpServletRequest, httpServletResponse);
+        try {
+            int departmentID = Integer.parseInt(httpServletRequest.getParameter("departmentID"));
+            httpServletRequest.setAttribute("departmentID", departmentID);
+            getServletContext().getRequestDispatcher("/createEmployee.jsp").forward(httpServletRequest, httpServletResponse);
+        } catch (Exception ex) {
+            getServletContext().getRequestDispatcher("/notfound.jsp").forward(httpServletRequest, httpServletResponse);
+        }
     }
 
     @Override

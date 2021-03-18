@@ -28,6 +28,6 @@
         <input type="hidden" name="oldDepartmentID" value="${department.id}"/><br><br>
         <input type="submit" value="Сохранить" />
     </form> |
-    <input type="button" onclick="history.back();" value="Отмена"/>
+    <a href='<c:url value="/employeeList?id=${department.id}" />'>Отмена</a>
 </body>
 </html>

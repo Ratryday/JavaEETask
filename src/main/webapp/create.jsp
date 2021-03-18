@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,6 @@
         <input name="name" value="${name}"/><br><br>
         <input type="submit" value="Добавить" />
     </form> |
-    <input type="button" onclick="history.back();" value="Отмена"/>
+    <a href='<c:url value="/" />'>Отмена</a>
 </body>
 </html>

@@ -7,8 +7,6 @@ import com.ratryday.controller.employee.Employee;
 
 
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Validator {

@@ -9,7 +9,6 @@
 <body>
 <h2>Список сотрудников ${department.name}</h2>
     <form method="get" action='<c:url value="/createEmployee" />' style="display:inline;">
-        <input type="hidden" name="departmentName" value="${department.name}">
         <input type="hidden" name="departmentID" value="${department.id}">
         <input type="submit" value="Добавить">
     </form> |
