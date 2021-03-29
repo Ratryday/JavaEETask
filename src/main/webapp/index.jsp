@@ -5,31 +5,34 @@
 <head>
 <meta charset="UTF-8">
 <title>Департаменты</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainStyle.css" />
 </head>
 <body>
+    <div class="box">
 <h2>Список департаментов</h2>
- <form method="get" action='<c:url value="/create" />'>
+ <form class="button add" method="get" action='<c:url value="/create" />'>
         <input type="submit" value="Добавить">
     </form>
-<table>
+<table  class="table" class="button">
 <tr><th>Название</th></tr>
 <c:forEach var="departments" items="${department}">
- <tr><td>${departments.name}</td>
+ <tr class="depart"><td class="departmentName">${departments.name}</td>
     <td>
-    <form method="get" action='<c:url value="/edit" />' style="display:inline;">
+    <form class="button" method="get" action='<c:url value="/edit" />' style="display:inline;">
         <input type="hidden" name="id" value="${departments.id}">
         <input type="submit" value="Редактировать">
-    </form> |
-    <form method="post" action='<c:url value="/delete" />' style="display:inline;">
+    </form>
+    <form class="delete" method="post" action='<c:url value="/delete" />' style="display:inline;">
         <input type="hidden" name="id" value="${departments.id}">
         <input type="submit" value="Удалить">
-    </form> |
-    <form method="get" action='<c:url value="/employeeList" />' style="display:inline;">
+    </form>
+    <form class="button" method="get" action='<c:url value="/employeeList" />' style="display:inline;">
         <input type="hidden" name="id" value="${departments.id}">
         <input type="submit" value="Список сотрудников">
     </form>
  </td></tr>
 </c:forEach>
 </table>
+</div>
 </body>
 </html>

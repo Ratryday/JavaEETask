@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавление сотрудника</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
     <h3>Новый сотрудник</h3>
@@ -20,6 +21,6 @@
         <input type="hidden" name="departmentID" value="${departmentID}"/><br><br>
         <input type="submit" value="Добавить" />
     </form> |
-    <a href='<c:url value="/employeeList?id=${departmentID}" />'>Отмена</a>
+    <a class="cancel" href='<c:url value="/employeeList?id=${departmentID}" />'>Отмена</a>
 </body>
 </html>

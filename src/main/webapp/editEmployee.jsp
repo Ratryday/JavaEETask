@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Редактирование сотрудника</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
     <h3>Редактирование сотрудника</h3>
@@ -28,6 +29,6 @@
         <input type="hidden" name="oldDepartmentID" value="${department.id}"/><br><br>
         <input type="submit" value="Сохранить" />
     </form> |
-    <a href='<c:url value="/employeeList?id=${department.id}" />'>Отмена</a>
+    <a class="cancel" href='<c:url value="/employeeList?id=${department.id}" />'>Отмена</a>
 </body>
 </html>

@@ -5,14 +5,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавление департамента</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainStyle.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/createStyle.css" />
 </head>
 <body>
-    <h3>Новый департамент</h3>
-    <form method="post" style="display:inline;">
+  <div class="box">
+    <h2>Новый департамент</h2>
+    <form class="button add table" method="post">
         <label>Название</label><br>
-        <input name="name" value="${name}"/><br><br>
+        <input type="text" name="name" value="${name}"/>
         <input type="submit" value="Добавить" />
-    </form> |
+    </form>
     <a href='<c:url value="/" />'>Отмена</a>
+  </div>
 </body>
 </html>
