@@ -19,7 +19,7 @@
         <label>Почтовый адрес</label><br>
         <input name="mailingAddress" value="${employee.mailingAddress}" /><br>
         <label>Департамент</label><br>
-        <select name="departmentId">
+        <select name="departmentID">
         <option selected value="${department.id}" hidden="">${department.name}</option>
            <c:forEach items="${departments}" var="dep">
                <option value="${dep.id}">${dep.name}</option>

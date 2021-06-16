@@ -11,53 +11,47 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/edit")
+import static com.ratryday.controllers.Constants.*;
+
+@WebServlet(SLASH_EDIT)
 public class EditDepartmentServlet extends HttpServlet {
     private static final long serialVersionUID = -673932636673914989L;
 
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
-        try {
-            int id = Integer.parseInt(httpServletRequest.getParameter("id"));
-            Department department = DepartmentDB.selectOne(id);
-            if (department != null) {
-                httpServletRequest.setAttribute("department", department);
-                getServletContext().getRequestDispatcher("/edit.jsp").forward(httpServletRequest, httpServletResponse);
-            } else {
-                getServletContext().getRequestDispatcher("/notfound.jsp").forward(httpServletRequest, httpServletResponse);
-            }
-        } catch (Exception ex) {
-            getServletContext().getRequestDispatcher("/notfound.jsp").forward(httpServletRequest, httpServletResponse);
-        }
+        int id = Integer.parseInt(httpServletRequest.getParameter(getID()));
+        Department department = DepartmentDB.selectOne(id);
+        httpServletRequest.setAttribute(getDEPARTMENTS(), department);
+        getServletContext().getRequestDispatcher(getEditPage()).forward(httpServletRequest, httpServletResponse);
     }
 
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
         try {
-            String name = httpServletRequest.getParameter("name");
-            int id = Integer.parseInt(httpServletRequest.getParameter("id"));
+            String name = httpServletRequest.getParameter(getNAME());
+            int id = Integer.parseInt(httpServletRequest.getParameter(getID()));
             if (Validator.departmentNameValidator(name)) {
                 Department department = new Department(id, name);
                 DepartmentDB.update(department);
-                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "");
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + getEmptyChar());
             } else {
-                String errorMassage = "Департамент с таким именем уже есть";
+                String errorMassage = getEmptyChar();
                 System.out.println(errorMassage);
                 Department department = new Department(id, name);
-                httpServletRequest.setAttribute("department", department);
-                getServletContext().getRequestDispatcher("/edit.jsp").forward(httpServletRequest, httpServletResponse);
+                httpServletRequest.setAttribute(getDEPARTMENT(), department);
+                getServletContext().getRequestDispatcher(getEditPage()).forward(httpServletRequest, httpServletResponse);
             }
         } catch (NullPointerException ex) {
-            String errorMassage = "У департамента должно быть имя";
+            String errorMassage = getEmptyChar();
             System.out.println(errorMassage);
-            int id = Integer.parseInt(httpServletRequest.getParameter("id"));
+            int id = Integer.parseInt(httpServletRequest.getParameter(getID()));
             Department department = new Department(id, null);
-            httpServletRequest.setAttribute("department", department);
-            getServletContext().getRequestDispatcher("/edit.jsp").forward(httpServletRequest, httpServletResponse);
+            httpServletRequest.setAttribute(getDEPARTMENT(), department);
+            getServletContext().getRequestDispatcher(getEditPage()).forward(httpServletRequest, httpServletResponse);
         } catch (Exception ex) {
-            getServletContext().getRequestDispatcher("/edit.jsp").forward(httpServletRequest, httpServletResponse);
+            getServletContext().getRequestDispatcher(getEditPage()).forward(httpServletRequest, httpServletResponse);
         }
     }
 }

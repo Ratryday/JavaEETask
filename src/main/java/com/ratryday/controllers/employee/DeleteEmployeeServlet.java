@@ -11,28 +11,27 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/deleteEmployee")
+import static com.ratryday.controllers.Constants.*;
+
+@WebServlet(SLASH_DELETE_EMPLOYEE)
 public class DeleteEmployeeServlet extends HttpServlet {
     private static final long serialVersionUID = 5857248080450667250L;
 
     @Override
-    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
+            throws ServletException, IOException {
 
-        try {
-            int idEmployee = Integer.parseInt(httpServletRequest.getParameter("idEmployee"));
-            int departmentID = Integer.parseInt(httpServletRequest.getParameter("departmentID"));
-            String departmentName = httpServletRequest.getParameter("departmentName");
-            EmployeeDB.delete(idEmployee, departmentID);
+        int idEmployee = Integer.parseInt(httpServletRequest.getParameter(getIdEmployee()));
+        int departmentID = Integer.parseInt(httpServletRequest.getParameter(getDepartmentId()));
+        String departmentName = httpServletRequest.getParameter(getDepartmentName());
+        EmployeeDB.delete(idEmployee, departmentID);
 
-            ArrayList<Employee> employee = EmployeeDB.select(departmentID);
+        ArrayList<Employee> employee = EmployeeDB.select(departmentID);
 
-            httpServletRequest.setAttribute("employee", employee);
-            httpServletRequest.setAttribute("departmentID", departmentID);
-            httpServletRequest.setAttribute("departmentName", departmentName);
+        httpServletRequest.setAttribute(getEMPLOYEE(), employee);
+        httpServletRequest.setAttribute(getDepartmentId(), departmentID);
+        httpServletRequest.setAttribute(getDepartmentName(), departmentName);
 
-            getServletContext().getRequestDispatcher("/employeeList.jsp").forward(httpServletRequest, httpServletResponse);
-        }catch (Exception ex) {
-            getServletContext().getRequestDispatcher("/notfound.jsp").forward(httpServletRequest, httpServletResponse);
-        }
+        getServletContext().getRequestDispatcher(getEmployeeListPage()).forward(httpServletRequest, httpServletResponse);
     }
 }

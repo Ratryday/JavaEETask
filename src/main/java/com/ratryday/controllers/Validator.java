@@ -46,7 +46,8 @@ public class Validator {
             if (employeeMailingAddress == "") {
                 isValid = false;
             } else {
-                Pattern mailingAddress = Pattern.compile("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
+                Pattern mailingAddress
+                        = Pattern.compile("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
                 if (mailingAddress.matcher(employeeMailingAddress).matches()) {
                     Employee employee = EmployeeDB.selectOne(employeeMailingAddress);
                     if (employee != null) {
