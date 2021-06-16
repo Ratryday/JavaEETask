@@ -2,13 +2,13 @@ body{
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background: #3498db;
+  background: #b2bec3;
 }
 
 .box{
 margin: 5%;
 padding-top: 1%;
-background: #2980b9;
+background: #dfe6e9;
 border-radius: 32px;
 border: 2px solid black;
 }
@@ -29,7 +29,7 @@ h2{
   border: 2px solid #16a085;
   padding: 10px 40px;
   outline: none;
-  color: white;
+  color: black;
   border-radius: 24px;
   transition: 0.25s;
   cursor: pointer;
@@ -51,7 +51,7 @@ h2{
   border: 2px solid #c0392b;
   padding: 10px 40px;
   outline: none;
-  color: white;
+  color: black;
   border-radius: 24px;
   transition: 0.25s;
   cursor: pointer;
@@ -63,7 +63,6 @@ h2{
 
 .table{
   margin: auto;
-  border: 2px solid white;
   border-radius: 24px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -85,7 +84,7 @@ a{
   border: 2px solid #16a085;
   padding: 10px 40px;
   outline: none;
-  color: white;
+  color: black;
   border-radius: 24px;
   transition: 0.25s;
   cursor: pointer;
@@ -98,26 +97,26 @@ a:hover{
 }
 
 h2{
-  color: white;
+  color: black;
   font-weight: 300;
 }
 th{
-  color: white;
+  color: black;
   font-weight: 300;
 }
 
 label{
   margin: auto;
-  color: white;
+  color: black;
   font-weight: 300;
 }
 
 .departmentName{
-  color: white;
+  color: black;
   font-weight: 300;
 }
 
-.box input[type = "text"]{
+.box input[type = "text"],input[type = "date"],input[type = "email"]{
   border: 0;
   background: none;
   display: block;
@@ -127,16 +126,12 @@ label{
   padding: 10px 10px;
   width: 200px;
   outline: none;
-  color: white;
+  color: black;
   border-radius: 24px;
   transition: 0.25s;
 }
 
-.box input[type = "text"]:focus{
+.box input[type = "text"]:focus,input[type = "date"]:focus,input[type = "email"]:focus{
   width: 260px;
-  border-color: white;
-}
-
-.depart{
-  border: 4px solid red;
+  border-color: black;
 }

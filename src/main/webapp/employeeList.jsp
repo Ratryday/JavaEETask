@@ -5,17 +5,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Список сотрудников</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainStyle.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/createStyle.css" />
 </head>
 <body>
+  <div class="box">
 <h2>Список сотрудников ${department.name}</h2>
-    <form method="get" action='<c:url value="/createEmployee" />' style="display:inline;">
+<div class="table">
+    <form class="button add" method="get" action='<c:url value="/createEmployee" />'>
         <input type="hidden" name="departmentID" value="${department.id}">
         <input type="submit" value="Добавить">
-    </form> |
-    <form method="get" action='<c:url value="/" />' style="display:inline;">
+    </form>
+    <form class="button" method="get" action='<c:url value="/" />'>
         <input type="submit" value="Список департаментов">
     </form>
-<table>
+  </div>
+<table class="table">
 <tr><th>Имя</th><th>Дата найма</th><th>Опыт работы</th><th>Почтовый адрес</th><th></th></tr>
 <c:forEach var="employees" items="${employee}">
  <tr><td>${employees.employeeName}</td>
@@ -23,12 +28,12 @@
             <td>${employees.experience}</td>
                     <td>${employees.mailingAddress}</td>
                         <td>
-    <form method="get" action='<c:url value="/editEmployee" />' style="display:inline;">
+    <form class="button" method="get" action='<c:url value="/editEmployee" />'>
         <input type="hidden" name="idEmployee" value="${employees.idEmployee}">
         <input type="hidden" name="departmentID" value="${department.id}">
         <input type="submit" value="Редактировать">
-    </form> |
-    <form method="post" action='<c:url value="/deleteEmployee" />' style="display:inline;">
+    </form>
+    <form class="button" method="post" action='<c:url value="/deleteEmployee" />'>
         <input type="hidden" name="idEmployee" value="${employees.idEmployee}">
         <input type="hidden" name="departmentID" value="${department.id}">
         <input type="hidden" name="departmentName" value="${department.name}">
@@ -37,5 +42,6 @@
  </td></tr>
 </c:forEach>
 </table>
+</div>
 </body>
 </html>

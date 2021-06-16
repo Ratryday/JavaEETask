@@ -1,9 +1,9 @@
-package com.ratryday.controller;
+package com.ratryday.controllers;
 
-import com.ratryday.controller.department.Department;
-import com.ratryday.controller.department.DepartmentDB;
-import com.ratryday.controller.employee.EmployeeDB;
-import com.ratryday.controller.employee.Employee;
+import com.ratryday.models.Department;
+import com.ratryday.dao.DepartmentDB;
+import com.ratryday.dao.EmployeeDB;
+import com.ratryday.models.Employee;
 
 
 import java.sql.Date;

@@ -1,4 +1,4 @@
-package com.ratryday.controller.department;
+package com.ratryday.models;
 
 import java.io.Serializable;
 

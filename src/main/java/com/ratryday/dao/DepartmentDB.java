@@ -1,4 +1,6 @@
-package com.ratryday.controller.department;
+package com.ratryday.dao;
+
+import com.ratryday.models.Department;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,4 +1,6 @@
-package com.ratryday.controller.employee;
+package com.ratryday.dao;
+
+import com.ratryday.models.Employee;
 
 import java.sql.*;
 import java.util.ArrayList;

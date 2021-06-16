@@ -1,8 +1,8 @@
-package com.ratryday.controller.department.departmentservlets;
+package com.ratryday.controllers.department;
 
-import com.ratryday.controller.Validator;
-import com.ratryday.controller.department.Department;
-import com.ratryday.controller.department.DepartmentDB;
+import com.ratryday.controllers.Validator;
+import com.ratryday.models.Department;
+import com.ratryday.dao.DepartmentDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/edit")
-public class EditDepartment extends HttpServlet {
+public class EditDepartmentServlet extends HttpServlet {
     private static final long serialVersionUID = -673932636673914989L;
 
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)

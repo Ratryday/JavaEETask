@@ -1,4 +1,4 @@
-package com.ratryday.controller;
+package com.ratryday.controllers;
 
 import javax.servlet.*;
 import java.io.IOException;

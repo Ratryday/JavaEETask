@@ -1,7 +1,7 @@
-package com.ratryday.controller.employee.employeeservlets;
+package com.ratryday.controllers.employee;
 
-import com.ratryday.controller.employee.Employee;
-import com.ratryday.controller.employee.EmployeeDB;
+import com.ratryday.models.Employee;
+import com.ratryday.dao.EmployeeDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @WebServlet("/deleteEmployee")
-public class DeleteEmployee extends HttpServlet {
+public class DeleteEmployeeServlet extends HttpServlet {
     private static final long serialVersionUID = 5857248080450667250L;
 
     @Override

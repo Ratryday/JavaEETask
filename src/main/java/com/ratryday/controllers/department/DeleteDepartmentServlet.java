@@ -1,8 +1,8 @@
-package com.ratryday.controller.department.departmentservlets;
+package com.ratryday.controllers.department;
 
-import com.ratryday.controller.department.DepartmentDB;
-import com.ratryday.controller.employee.Employee;
-import com.ratryday.controller.employee.EmployeeDB;
+import com.ratryday.dao.DepartmentDB;
+import com.ratryday.models.Employee;
+import com.ratryday.dao.EmployeeDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @WebServlet("/delete")
-public class DeleteDepartment extends HttpServlet {
+public class DeleteDepartmentServlet extends HttpServlet {
     private static final long serialVersionUID = 4135431999742926051L;
 
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)

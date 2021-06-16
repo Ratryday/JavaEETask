@@ -1,9 +1,9 @@
-package com.ratryday.controller.employee.employeeservlets;
+package com.ratryday.controllers.employee;
 
-import com.ratryday.controller.department.Department;
-import com.ratryday.controller.department.DepartmentDB;
-import com.ratryday.controller.employee.Employee;
-import com.ratryday.controller.employee.EmployeeDB;
+import com.ratryday.models.Department;
+import com.ratryday.dao.DepartmentDB;
+import com.ratryday.models.Employee;
+import com.ratryday.dao.EmployeeDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @WebServlet("/employeeList")
-public class EmployeeList extends HttpServlet {
+public class EmployeeListServlet extends HttpServlet {
     private static final long serialVersionUID = 8130011401819399469L;
 
     @Override

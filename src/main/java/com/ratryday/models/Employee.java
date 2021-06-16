@@ -1,4 +1,4 @@
-package com.ratryday.controller.employee;
+package com.ratryday.models;
 
 import java.io.Serializable;
 import java.sql.Date;

@@ -1,7 +1,7 @@
-package com.ratryday.controller.department.departmentservlets;
+package com.ratryday.controllers.department;
 
-import com.ratryday.controller.department.Department;
-import com.ratryday.controller.department.DepartmentDB;
+import com.ratryday.models.Department;
+import com.ratryday.dao.DepartmentDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @WebServlet("")
-public class Index extends HttpServlet {
+public class IndexServlet extends HttpServlet {
     private static final long serialVersionUID = -2434980003597933186L;
 
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {

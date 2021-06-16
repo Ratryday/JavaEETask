@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Департаменты</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainStyle.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/createStyle.css" />
 </head>
 <body>
     <div class="box">
