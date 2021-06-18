@@ -17,7 +17,10 @@ import static com.ratryday.controllers.Constants.*;
 
 @WebServlet(SLASH_EMPLOYEE_LIST)
 public class EmployeeListServlet extends HttpServlet {
+
     private static final long serialVersionUID = 8130011401819399469L;
+
+    private EmployeeDB employeeDB;
 
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
@@ -26,7 +29,7 @@ public class EmployeeListServlet extends HttpServlet {
         int departmentID = Integer.parseInt(httpServletRequest.getParameter(getID()));
 
         Department department = DepartmentDB.selectOne(departmentID);
-        ArrayList<Employee> employee = EmployeeDB.select(departmentID);
+        ArrayList<Employee> employee = employeeDB.select(departmentID);
 
         httpServletRequest.setAttribute(getEMPLOYEE(), employee);
         httpServletRequest.setAttribute(getDEPARTMENTS(), department);

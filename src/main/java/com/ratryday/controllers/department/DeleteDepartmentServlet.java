@@ -16,15 +16,22 @@ import static com.ratryday.controllers.Constants.*;
 
 @WebServlet(SLASH_DELETE)
 public class DeleteDepartmentServlet extends HttpServlet {
+
     private static final long serialVersionUID = 4135431999742926051L;
+
+    private EmployeeDB employeeDB;
 
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
         int id = Integer.parseInt(httpServletRequest.getParameter(getID()));
-        ArrayList<Employee> employee = EmployeeDB.select(id);
-        for (Employee emp : employee) {
-            EmployeeDB.delete(emp.getIdEmployee(), id);
+        ArrayList<Employee> employeeArrayList;
+
+        employeeArrayList = employeeDB.select(id);
+
+        for (Employee emp : employeeArrayList) {
+            employeeDB.delete(emp.getIdEmployee(), id);
         }
+
         DepartmentDB.delete(id);
         httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
     }

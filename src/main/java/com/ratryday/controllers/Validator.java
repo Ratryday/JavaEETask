@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 
 public class Validator {
 
+    private EmployeeDB employeeDB;
+
     public static boolean departmentNameValidator(String departmentName) {
         if (departmentName != null) {
             if (departmentName == "") {
@@ -21,7 +23,7 @@ public class Validator {
         return false;
     }
 
-    public static boolean isValidator(String employeeName, LocalDate employeeHiringDate, Integer employeeExperience, String employeeMailingAddress) {
+    public boolean isValidator(String employeeName, LocalDate employeeHiringDate, Integer employeeExperience, String employeeMailingAddress) {
         boolean isValid = true;
         if (employeeName != null) {
             if (employeeName == "") {
@@ -48,8 +50,8 @@ public class Validator {
                 Pattern mailingAddress
                         = Pattern.compile("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
                 if (mailingAddress.matcher(employeeMailingAddress).matches()) {
-                    Employee employee = EmployeeDB.selectOne(employeeMailingAddress);
-                    if (employee != null) {
+                    employeeDB.selectOne(employeeMailingAddress);
+                    if (employeeDB != null) {
                         isValid = false;
                     }
                 } else {

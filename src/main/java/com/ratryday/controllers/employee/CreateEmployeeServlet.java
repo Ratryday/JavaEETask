@@ -20,7 +20,11 @@ import static com.ratryday.controllers.Constants.*;
 
 @WebServlet(SLASH_CREATE_EMPLOYEE)
 public class CreateEmployeeServlet extends HttpServlet {
+
     private static final long serialVersionUID = -7952625273354502725L;
+
+    private Validator validator;
+    private EmployeeDB employeeDB;
 
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
@@ -55,7 +59,7 @@ public class CreateEmployeeServlet extends HttpServlet {
 
             int departmentID = Integer.parseInt(httpServletRequest.getParameter(getDepartmentId()));
 
-            if (Validator.isValidator(employeeName, convertedToSQLHiringDate, experience, mailingAddress)) {
+            if (validator.isValidator(employeeName, convertedToSQLHiringDate, experience, mailingAddress)) {
 
                 // Employee Builder
                 Employee employee = new Employee.EmployeeBuilder()
@@ -66,8 +70,9 @@ public class CreateEmployeeServlet extends HttpServlet {
                         .setDepartmentID(departmentID)
                         .build();
 
-                EmployeeDB.insert(employee);
-                ArrayList<Employee> employees = EmployeeDB.select(departmentID);
+                employeeDB.insert(employee);
+
+                ArrayList<Employee> employees = employeeDB.select(departmentID);
                 Department department = DepartmentDB.selectOne(departmentID);
                 httpServletRequest.setAttribute(getEMPLOYEE(), employees);
                 httpServletRequest.setAttribute(getDepartmentId(), department);

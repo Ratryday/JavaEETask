@@ -15,6 +15,7 @@ import static com.ratryday.controllers.Constants.*;
 
 @WebServlet(SLASH_EDIT)
 public class EditDepartmentServlet extends HttpServlet {
+
     private static final long serialVersionUID = -673932636673914989L;
 
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)

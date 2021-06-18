@@ -15,6 +15,7 @@ import static com.ratryday.controllers.Constants.*;
 
 @WebServlet(SLASH_INDEX)
 public class IndexServlet extends HttpServlet {
+
     private static final long serialVersionUID = -2434980003597933186L;
 
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {

@@ -11,7 +11,7 @@ public class EmployeeDB {
     private static String username = "root";
     private static String password = "root";
 
-    public static ArrayList<Employee> select(int id) {
+    public ArrayList<Employee> select(int id) {
         ArrayList<Employee> employees = new ArrayList<Employee>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -35,7 +35,7 @@ public class EmployeeDB {
         return employees;
     }
 
-    public static Employee selectOne(int id) {
+    public Employee selectOne(int id) {
         Employee employee = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -60,7 +60,7 @@ public class EmployeeDB {
         return employee;
     }
 
-    public static Employee selectOne(String mail) {
+    public Employee selectOne(String mail) {
         Employee employee = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -84,7 +84,7 @@ public class EmployeeDB {
         return employee;
     }
 
-    public static int insert(Employee employee) {
+    public int insert(Employee employee) {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -106,7 +106,7 @@ public class EmployeeDB {
         return 0;
     }
 
-    public static int update(Employee employee) {
+    public int update(Employee employee) {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -131,7 +131,7 @@ public class EmployeeDB {
         return 0;
     }
 
-    public static int delete(int idEmployee, int departmentID) {
+    public int delete(int idEmployee, int departmentID) {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();

@@ -24,16 +24,19 @@ import static com.ratryday.controllers.Constants.getEmployeeListPage;
 @WebServlet(SLASH_EDIT_EMPLOYEE)
 public class EditEmployeeServlet extends HttpServlet {
 
+    private EmployeeDB employeeDB;
+    private Validator validator;
+
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
         int idEmployee = Integer.parseInt(httpServletRequest.getParameter(getIdEmployee()));
         int departmentID = Integer.parseInt(httpServletRequest.getParameter(getDepartmentId()));
         Department department = DepartmentDB.selectOne(departmentID);
-        Employee employee = EmployeeDB.selectOne(idEmployee);
+
         ArrayList<Department> departments = DepartmentDB.select();
 
-        httpServletRequest.setAttribute(getEMPLOYEE(), employee);
+        httpServletRequest.setAttribute(getEMPLOYEE(), employeeDB.select(idEmployee));
         httpServletRequest.setAttribute(getDEPARTMENT(), department);
         httpServletRequest.setAttribute(getDEPARTMENTS(), departments);
         getServletContext().getRequestDispatcher(getEditEmployeePage()).forward(httpServletRequest, httpServletResponse);
@@ -72,7 +75,7 @@ public class EditEmployeeServlet extends HttpServlet {
 
         int oldDepartmentID = Integer.parseInt(httpServletRequest.getParameter(getOldDepartmentId()));
 
-        if (Validator.isValidator(employeeName, convertedToSQLHiringDate, experience, mailingAddress)) {
+        if (validator.isValidator(employeeName, convertedToSQLHiringDate, experience, mailingAddress)) {
 
             // Employee Builder
             Employee employee = new Employee.EmployeeBuilder()
@@ -84,9 +87,10 @@ public class EditEmployeeServlet extends HttpServlet {
                     .setDepartmentID(departmentID)
                     .build();
 
-            EmployeeDB.update(employee);
+            employeeDB.update(employee);
+
             Department oldDepartment = DepartmentDB.selectOne(oldDepartmentID);
-            ArrayList<Employee> employees = EmployeeDB.select(oldDepartmentID);
+            ArrayList<Employee> employees = employeeDB.select(oldDepartmentID);
 
             httpServletRequest.setAttribute(getEMPLOYEE(), employees);
             httpServletRequest.setAttribute(getDEPARTMENT(), oldDepartment);
