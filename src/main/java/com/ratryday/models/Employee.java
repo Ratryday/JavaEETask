@@ -1,7 +1,7 @@
 package com.ratryday.models;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 
 
 public class Employee implements Serializable {
@@ -9,34 +9,13 @@ public class Employee implements Serializable {
     private static final long serialVersionUID = 4059388415027009547L;
 
     private int idEmployee;
-    private String employeeName;
-    private Date hiringDate;
-    private Integer experience;
-    private String mailingAddress;
     private int departmentID;
+    private Integer experience;
+    private String employeeName;
+    private LocalDate hiringDate;
+    private String mailingAddress;
 
     public Employee() {
-    }
-
-    public Employee(String mailingAddress) {
-        this.mailingAddress = mailingAddress;
-    }
-
-    public Employee(String employeeName, Date hiringDate, Integer experience, String mailingAddress, int departmentID) {
-        this.employeeName = employeeName;
-        this.hiringDate = hiringDate;
-        this.experience = experience;
-        this.mailingAddress = mailingAddress;
-        this.departmentID = departmentID;
-    }
-
-    public Employee(int idEmployee, String employeeName, Date hiringDate, Integer experience, String mailingAddress, int departmentID) {
-        this.idEmployee = idEmployee;
-        this.employeeName = employeeName;
-        this.hiringDate = hiringDate;
-        this.experience = experience;
-        this.mailingAddress = mailingAddress;
-        this.departmentID = departmentID;
     }
 
     public int getIdEmployee() {
@@ -51,11 +30,11 @@ public class Employee implements Serializable {
         this.employeeName = employeeName;
     }
 
-    public Date getHiringDate() {
+    public LocalDate getHiringDate() {
         return hiringDate;
     }
 
-    public void setHiringDate(Date hiringDate) {
+    public void setHiringDate(LocalDate hiringDate) {
         this.hiringDate = hiringDate;
     }
 
@@ -81,5 +60,64 @@ public class Employee implements Serializable {
 
     public void setDepartmentID(int departmentID) {
         this.departmentID = departmentID;
+    }
+
+    public static class EmployeeBuilder {
+
+        private int idEmployee;
+        private int departmentID;
+        private Integer experience;
+        private String employeeName;
+        private LocalDate hiringDate;
+        private String mailingAddress;
+
+        public EmployeeBuilder setIdEmployee(int idEmployee) {
+            this.idEmployee = idEmployee;
+
+            return this;
+        }
+
+        public EmployeeBuilder setEmployeeName(String employeeName) {
+            this.employeeName = employeeName;
+
+            return this;
+        }
+
+        public EmployeeBuilder setHiringDate(LocalDate hiringDate) {
+            this.hiringDate = hiringDate;
+
+            return this;
+        }
+
+        public EmployeeBuilder setExperience(Integer experience) {
+            this.experience = experience;
+
+            return this;
+        }
+
+        public EmployeeBuilder setMailingAddress(String mailingAddress) {
+            this.mailingAddress = mailingAddress;
+
+            return this;
+        }
+
+        public EmployeeBuilder setDepartmentID(int departmentID) {
+            this.departmentID = departmentID;
+
+            return this;
+        }
+
+        public Employee build() {
+            Employee employee = new Employee();
+
+            employee.idEmployee = this.idEmployee;
+            employee.hiringDate = this.hiringDate;
+            employee.experience = this.experience;
+            employee.departmentID = this.departmentID;
+            employee.employeeName = this.employeeName;
+            employee.mailingAddress = this.mailingAddress;
+
+            return employee;
+        }
     }
 }

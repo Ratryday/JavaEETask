@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 import static com.ratryday.controllers.Constants.*;
 
@@ -38,12 +38,12 @@ public class CreateEmployeeServlet extends HttpServlet {
             String employeeName = httpServletRequest.getParameter(getEmployeeName());
 
             String hiringDate = null;
-            java.sql.Date convertedToSQLHiringDate = null;
+            LocalDate convertedToSQLHiringDate = null;
             if (!httpServletRequest.getParameter(getHiringDate()).isEmpty()) {
                 hiringDate = httpServletRequest.getParameter(getHiringDate());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getDateFormat());
-                Date convertedHiringDate = simpleDateFormat.parse(hiringDate);
-                convertedToSQLHiringDate = new java.sql.Date(convertedHiringDate.getTime());
+                java.sql.Date convertedHiringDate = (java.sql.Date) simpleDateFormat.parse(hiringDate);
+                convertedToSQLHiringDate = convertedHiringDate.toLocalDate();
             }
 
             Integer experience = null;
@@ -56,7 +56,16 @@ public class CreateEmployeeServlet extends HttpServlet {
             int departmentID = Integer.parseInt(httpServletRequest.getParameter(getDepartmentId()));
 
             if (Validator.isValidator(employeeName, convertedToSQLHiringDate, experience, mailingAddress)) {
-                Employee employee = new Employee(employeeName, convertedToSQLHiringDate, experience, mailingAddress, departmentID);
+
+                // EmployeeBuilder
+                Employee employee = new Employee.EmployeeBuilder()
+                        .setEmployeeName(employeeName)
+                        .setHiringDate(convertedToSQLHiringDate)
+                        .setExperience(experience)
+                        .setMailingAddress(mailingAddress)
+                        .setDepartmentID(departmentID)
+                        .build();
+
                 EmployeeDB.insert(employee);
                 ArrayList<Employee> employees = EmployeeDB.select(departmentID);
                 Department department = DepartmentDB.selectOne(departmentID);
@@ -64,7 +73,16 @@ public class CreateEmployeeServlet extends HttpServlet {
                 httpServletRequest.setAttribute(getDepartmentId(), department);
                 getServletContext().getRequestDispatcher(getEmployeeListPage()).forward(httpServletRequest, httpServletResponse);
             } else {
-                Employee employee = new Employee(employeeName, convertedToSQLHiringDate, experience, mailingAddress, departmentID);
+
+                // EmployeeBuilder
+                Employee employee = new Employee.EmployeeBuilder()
+                        .setEmployeeName(employeeName)
+                        .setHiringDate(convertedToSQLHiringDate)
+                        .setExperience(experience)
+                        .setMailingAddress(mailingAddress)
+                        .setDepartmentID(departmentID)
+                        .build();
+
                 httpServletRequest.setAttribute(getEMPLOYEE(), employee);
                 httpServletRequest.setAttribute(getDepartmentId(), departmentID);
                 getServletContext().getRequestDispatcher(getCreateEmployeePage()).forward(httpServletRequest, httpServletResponse);

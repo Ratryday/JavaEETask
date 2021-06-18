@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -35,8 +36,7 @@ public class EditEmployeeServlet extends HttpServlet {
         httpServletRequest.setAttribute(getEMPLOYEE(), employee);
         httpServletRequest.setAttribute(getDEPARTMENT(), department);
         httpServletRequest.setAttribute(getDEPARTMENTS(), departments);
-        getServletContext().getRequestDispatcher(getEditEmployeePage()).forward(httpServletRequest,
-                httpServletResponse);
+        getServletContext().getRequestDispatcher(getEditEmployeePage()).forward(httpServletRequest, httpServletResponse);
 
     }
 
@@ -48,17 +48,17 @@ public class EditEmployeeServlet extends HttpServlet {
         String employeeName = httpServletRequest.getParameter(getNAME());
 
         String hiringDate = null;
-        java.sql.Date convertedToSQLHiringDate = null;
+        LocalDate convertedToSQLHiringDate = null;
         if (!httpServletRequest.getParameter(getHiringDate()).isEmpty()) {
             hiringDate = httpServletRequest.getParameter(getHiringDate());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getDateFormat());
-            Date convertedHiringDate = null;
+            java.sql.Date convertedHiringDate = null;
             try {
-                convertedHiringDate = simpleDateFormat.parse(hiringDate);
+                convertedHiringDate = (java.sql.Date) simpleDateFormat.parse(hiringDate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            convertedToSQLHiringDate = new java.sql.Date(convertedHiringDate.getTime());
+            convertedToSQLHiringDate = convertedHiringDate.toLocalDate();
         }
 
         Integer experience = null;
@@ -73,8 +73,17 @@ public class EditEmployeeServlet extends HttpServlet {
         int oldDepartmentID = Integer.parseInt(httpServletRequest.getParameter(getOldDepartmentId()));
 
         if (Validator.isValidator(employeeName, convertedToSQLHiringDate, experience, mailingAddress)) {
-            Employee employee = new Employee(id, employeeName, convertedToSQLHiringDate, experience,
-                    mailingAddress, departmentID);
+
+            // EmployeeBuilder
+            Employee employee = new Employee.EmployeeBuilder()
+                    .setIdEmployee(id)
+                    .setEmployeeName(employeeName)
+                    .setHiringDate(convertedToSQLHiringDate)
+                    .setExperience(experience)
+                    .setMailingAddress(mailingAddress)
+                    .setDepartmentID(departmentID)
+                    .build();
+
             EmployeeDB.update(employee);
             Department oldDepartment = DepartmentDB.selectOne(oldDepartmentID);
             ArrayList<Employee> employees = EmployeeDB.select(oldDepartmentID);
@@ -85,8 +94,16 @@ public class EditEmployeeServlet extends HttpServlet {
             getServletContext().getRequestDispatcher(getEmployeeListPage()).forward(httpServletRequest,
                     httpServletResponse);
         } else {
-            Employee employee = new Employee(employeeName, convertedToSQLHiringDate, experience, mailingAddress,
-                    departmentID);
+
+            // EmployeeBuilder
+            Employee employee = new Employee.EmployeeBuilder()
+                    .setEmployeeName(employeeName)
+                    .setHiringDate(convertedToSQLHiringDate)
+                    .setExperience(experience)
+                    .setMailingAddress(mailingAddress)
+                    .setDepartmentID(departmentID)
+                    .build();
+
             Department department = DepartmentDB.selectOne(departmentID);
             ArrayList<Department> departments = DepartmentDB.select();
 

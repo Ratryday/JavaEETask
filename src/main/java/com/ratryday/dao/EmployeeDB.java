@@ -3,6 +3,7 @@ package com.ratryday.dao;
 import com.ratryday.models.Employee;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class EmployeeDB {
@@ -21,14 +22,22 @@ public class EmployeeDB {
                     preparedStatement.setInt(1, id);
                     ResultSet resultSet = preparedStatement.executeQuery();
                     while (resultSet.next()) {
-
                         int idEmployee = resultSet.getInt(1);
-                        String name = resultSet.getString(2);
-                        Date hiringDate = resultSet.getDate(3);
+                        String employeeName = resultSet.getString(2);
+                        LocalDate hiringDate = resultSet.getDate(3).toLocalDate();
                         int experience = resultSet.getInt(4);
                         String mailingAddress = resultSet.getString(5);
                         int departmentID = resultSet.getInt(6);
-                        Employee employee = new Employee(idEmployee, name, hiringDate, experience, mailingAddress, departmentID);
+
+                        // EmployeeBuilder
+                        Employee employee = new Employee.EmployeeBuilder()
+                                .setEmployeeName(employeeName)
+                                .setHiringDate(hiringDate)
+                                .setExperience(experience)
+                                .setMailingAddress(mailingAddress)
+                                .setDepartmentID(departmentID)
+                                .build();
+
                         employees.add(employee);
                     }
                 }
@@ -50,14 +59,21 @@ public class EmployeeDB {
                     preparedStatement.setInt(1, id);
                     ResultSet resultSet = preparedStatement.executeQuery();
                     if (resultSet.next()) {
-
                         int idEmployee = resultSet.getInt(1);
-                        String name = resultSet.getString(2);
-                        Date hiringDate = resultSet.getDate(3);
+                        String employeeName = resultSet.getString(2);
+                        LocalDate hiringDate = resultSet.getDate(3).toLocalDate();
                         int experience = resultSet.getInt(4);
                         String mailingAddress = resultSet.getString(5);
                         int departmentID = resultSet.getInt(6);
-                        employee = new Employee(idEmployee, name, hiringDate, experience, mailingAddress, departmentID);
+
+                        // EmployeeBuilder
+                        employee = new Employee.EmployeeBuilder()
+                                .setEmployeeName(employeeName)
+                                .setHiringDate(hiringDate)
+                                .setExperience(experience)
+                                .setMailingAddress(mailingAddress)
+                                .setDepartmentID(departmentID)
+                                .build();
                     }
                 }
             }
@@ -79,7 +95,9 @@ public class EmployeeDB {
                     ResultSet resultSet = preparedStatement.executeQuery();
                     if (resultSet.next()) {
                         String mailingAddress = resultSet.getString(5);
-                        employee = new Employee(mailingAddress);
+
+                        // EmployeeBuilder
+                        employee = new Employee.EmployeeBuilder().setMailingAddress(mailingAddress).build();
                     }
                 }
             }
@@ -98,7 +116,7 @@ public class EmployeeDB {
                 String sql = "INSERT INTO departmentdb.employee (name, hiringDate, experience, mailingAddress, departmentID) Values (?, ?, ?, ?, ?)";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                     preparedStatement.setString(1, employee.getEmployeeName());
-                    preparedStatement.setDate(2, (java.sql.Date) employee.getHiringDate());
+                    preparedStatement.setDate(2, java.sql.Date.valueOf(employee.getHiringDate()));
                     preparedStatement.setInt(3, employee.getExperience());
                     preparedStatement.setString(4, employee.getMailingAddress());
                     preparedStatement.setInt(5, employee.getDepartmentID());
@@ -121,7 +139,7 @@ public class EmployeeDB {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
                     preparedStatement.setString(1, employee.getEmployeeName());
-                    preparedStatement.setDate(2, (java.sql.Date) employee.getHiringDate());
+                    preparedStatement.setDate(2, java.sql.Date.valueOf(employee.getHiringDate()));
                     preparedStatement.setInt(3, employee.getExperience());
                     preparedStatement.setString(4, employee.getMailingAddress());
                     preparedStatement.setInt(5, employee.getDepartmentID());

@@ -5,8 +5,7 @@ import com.ratryday.dao.DepartmentDB;
 import com.ratryday.dao.EmployeeDB;
 import com.ratryday.models.Employee;
 
-
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class Validator {
@@ -22,7 +21,7 @@ public class Validator {
         return false;
     }
 
-    public static boolean isValidator(String employeeName, Date employeeHiringDate, Integer employeeExperience, String employeeMailingAddress) {
+    public static boolean isValidator(String employeeName, LocalDate employeeHiringDate, Integer employeeExperience, String employeeMailingAddress) {
         boolean isValid = true;
         if (employeeName != null) {
             if (employeeName == "") {
