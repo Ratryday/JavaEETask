@@ -57,7 +57,7 @@ public class CreateEmployeeServlet extends HttpServlet {
 
             if (Validator.isValidator(employeeName, convertedToSQLHiringDate, experience, mailingAddress)) {
 
-                // EmployeeBuilder
+                // Employee Builder
                 Employee employee = new Employee.EmployeeBuilder()
                         .setEmployeeName(employeeName)
                         .setHiringDate(convertedToSQLHiringDate)
@@ -74,7 +74,7 @@ public class CreateEmployeeServlet extends HttpServlet {
                 getServletContext().getRequestDispatcher(getEmployeeListPage()).forward(httpServletRequest, httpServletResponse);
             } else {
 
-                // EmployeeBuilder
+                // Employee Builder
                 Employee employee = new Employee.EmployeeBuilder()
                         .setEmployeeName(employeeName)
                         .setHiringDate(convertedToSQLHiringDate)

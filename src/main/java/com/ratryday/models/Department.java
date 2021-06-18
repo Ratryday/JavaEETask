@@ -12,15 +12,6 @@ public class Department implements Serializable {
     public Department() {
     }
 
-    public Department(String name) {
-        this.name = name;
-    }
-
-    public Department(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     public int getId() {
         return id;
     }
@@ -33,4 +24,30 @@ public class Department implements Serializable {
         this.name = name;
     }
 
+    public static class DepartmentBuilder {
+
+        private int id;
+        private String name;
+
+        public DepartmentBuilder setId(int id) {
+            this.id = id;
+
+            return this;
+        }
+
+        public DepartmentBuilder setName(String name) {
+            this.name = name;
+
+            return this;
+        }
+
+        public Department build(){
+            Department department = new Department();
+
+            department.id = this.id;
+            department.name = this.name;
+
+            return department;
+        }
+    }
 }

@@ -33,13 +33,25 @@ public class EditDepartmentServlet extends HttpServlet {
             String name = httpServletRequest.getParameter(getNAME());
             int id = Integer.parseInt(httpServletRequest.getParameter(getID()));
             if (Validator.departmentNameValidator(name)) {
-                Department department = new Department(id, name);
+
+                // Department Builder
+                Department department = new Department.DepartmentBuilder()
+                        .setId(id)
+                        .setName(name)
+                        .build();
+
                 DepartmentDB.update(department);
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + getEmptyChar());
             } else {
                 String errorMassage = getEmptyChar();
                 System.out.println(errorMassage);
-                Department department = new Department(id, name);
+
+                // Department Builder
+                Department department = new Department.DepartmentBuilder()
+                        .setId(id)
+                        .setName(name)
+                        .build();
+
                 httpServletRequest.setAttribute(getDEPARTMENT(), department);
                 getServletContext().getRequestDispatcher(getEditPage()).forward(httpServletRequest, httpServletResponse);
             }
@@ -47,7 +59,13 @@ public class EditDepartmentServlet extends HttpServlet {
             String errorMassage = getEmptyChar();
             System.out.println(errorMassage);
             int id = Integer.parseInt(httpServletRequest.getParameter(getID()));
-            Department department = new Department(id, null);
+
+            // Department Builder
+            Department department = new Department.DepartmentBuilder()
+                    .setId(id)
+                    .setName(null)
+                    .build();
+
             httpServletRequest.setAttribute(getDEPARTMENT(), department);
             getServletContext().getRequestDispatcher(getEditPage()).forward(httpServletRequest, httpServletResponse);
         } catch (Exception ex) {

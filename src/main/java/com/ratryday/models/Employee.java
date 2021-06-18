@@ -62,6 +62,7 @@ public class Employee implements Serializable {
         this.departmentID = departmentID;
     }
 
+    // Builder
     public static class EmployeeBuilder {
 
         private int idEmployee;

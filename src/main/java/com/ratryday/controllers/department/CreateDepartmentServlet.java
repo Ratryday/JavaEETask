@@ -28,7 +28,10 @@ public class CreateDepartmentServlet extends HttpServlet {
         try {
             String name = httpServletRequest.getParameter(getNAME());
             if (Validator.departmentNameValidator(name)) {
-                Department department = new Department(name);
+
+                // Department Builder
+                Department department = new Department.DepartmentBuilder().setName(name).build();
+
                 DepartmentDB.insert(department);
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
             } else {

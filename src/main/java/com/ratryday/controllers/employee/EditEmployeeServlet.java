@@ -74,7 +74,7 @@ public class EditEmployeeServlet extends HttpServlet {
 
         if (Validator.isValidator(employeeName, convertedToSQLHiringDate, experience, mailingAddress)) {
 
-            // EmployeeBuilder
+            // Employee Builder
             Employee employee = new Employee.EmployeeBuilder()
                     .setIdEmployee(id)
                     .setEmployeeName(employeeName)
@@ -95,7 +95,7 @@ public class EditEmployeeServlet extends HttpServlet {
                     httpServletResponse);
         } else {
 
-            // EmployeeBuilder
+            // Employee Builder
             Employee employee = new Employee.EmployeeBuilder()
                     .setEmployeeName(employeeName)
                     .setHiringDate(convertedToSQLHiringDate)
@@ -110,8 +110,7 @@ public class EditEmployeeServlet extends HttpServlet {
             httpServletRequest.setAttribute(getEMPLOYEE(), employee);
             httpServletRequest.setAttribute(getDEPARTMENT(), department);
             httpServletRequest.setAttribute(getDEPARTMENTS(), departments);
-            getServletContext().getRequestDispatcher(getEmployeeListPage()).forward(httpServletRequest,
-                    httpServletResponse);
+            getServletContext().getRequestDispatcher(getEmployeeListPage()).forward(httpServletRequest, httpServletResponse);
         }
     }
 }

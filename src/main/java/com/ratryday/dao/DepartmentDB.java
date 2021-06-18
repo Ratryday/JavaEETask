@@ -23,7 +23,13 @@ public class DepartmentDB {
 
                     int id = resultSet.getInt(1);
                     String name = resultSet.getString(2);
-                    Department department = new Department(id, name);
+
+                    // Department Builder
+                    Department department = new Department.DepartmentBuilder()
+                            .setId(id)
+                            .setName(name)
+                            .build();
+
                     departments.add(department);
                 }
             }
@@ -45,7 +51,12 @@ public class DepartmentDB {
                     if (resultSet.next()) {
                         int departmentId = resultSet.getInt(1);
                         String name = resultSet.getString(2);
-                        department = new Department(departmentId, name);
+
+                        // Department Builder
+                        department = new Department.DepartmentBuilder()
+                                .setId(departmentId)
+                                .setName(name)
+                                .build();
                     }
                 }
             }
@@ -67,7 +78,12 @@ public class DepartmentDB {
                     if (resultSet.next()) {
                         int departmentId = resultSet.getInt(1);
                         String name = resultSet.getString(2);
-                        department = new Department(departmentId, name);
+
+                        // Department Builder
+                        department = new Department.DepartmentBuilder()
+                                .setId(departmentId)
+                                .setName(name)
+                                .build();
                     }
                 }
             }

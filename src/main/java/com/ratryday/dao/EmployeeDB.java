@@ -29,7 +29,7 @@ public class EmployeeDB {
                         String mailingAddress = resultSet.getString(5);
                         int departmentID = resultSet.getInt(6);
 
-                        // EmployeeBuilder
+                        // Employee Builder
                         Employee employee = new Employee.EmployeeBuilder()
                                 .setEmployeeName(employeeName)
                                 .setHiringDate(hiringDate)
@@ -66,7 +66,7 @@ public class EmployeeDB {
                         String mailingAddress = resultSet.getString(5);
                         int departmentID = resultSet.getInt(6);
 
-                        // EmployeeBuilder
+                        // Employee Builder
                         employee = new Employee.EmployeeBuilder()
                                 .setEmployeeName(employeeName)
                                 .setHiringDate(hiringDate)
@@ -96,7 +96,7 @@ public class EmployeeDB {
                     if (resultSet.next()) {
                         String mailingAddress = resultSet.getString(5);
 
-                        // EmployeeBuilder
+                        // Employee Builder
                         employee = new Employee.EmployeeBuilder().setMailingAddress(mailingAddress).build();
                     }
                 }
