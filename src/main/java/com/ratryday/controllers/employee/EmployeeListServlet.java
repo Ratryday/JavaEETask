@@ -26,14 +26,14 @@ public class EmployeeListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
-        int departmentID = Integer.parseInt(httpServletRequest.getParameter(getID()));
+        int departmentID = Integer.parseInt(httpServletRequest.getParameter(ID));
 
         Department department = DepartmentDB.selectOne(departmentID);
         ArrayList<Employee> employee = employeeDB.select(departmentID);
 
-        httpServletRequest.setAttribute(getEMPLOYEE(), employee);
-        httpServletRequest.setAttribute(getDEPARTMENTS(), department);
+        httpServletRequest.setAttribute(EMPLOYEE, employee);
+        httpServletRequest.setAttribute(DEPARTMENTS, department);
 
-        getServletContext().getRequestDispatcher(getEmployeeListPage()).forward(httpServletRequest, httpServletResponse);
+        getServletContext().getRequestDispatcher(EMPLOYEE_LIST_PAGE).forward(httpServletRequest, httpServletResponse);
     }
 }

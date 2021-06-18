@@ -20,14 +20,14 @@ public class CreateDepartmentServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
-        getServletContext().getRequestDispatcher(getCreatePage()).forward(httpServletRequest, httpServletResponse);
+        getServletContext().getRequestDispatcher(CREATE_PAGE).forward(httpServletRequest, httpServletResponse);
     }
 
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
         try {
-            String name = httpServletRequest.getParameter(getNAME());
+            String name = httpServletRequest.getParameter(NAME);
             if (Validator.departmentNameValidator(name)) {
 
                 // Department Builder
@@ -36,16 +36,16 @@ public class CreateDepartmentServlet extends HttpServlet {
                 DepartmentDB.insert(department);
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
             } else {
-                String errorMassage = getEmptyChar();
+                String errorMassage = EMPTY_CHAR;
                 System.out.println(errorMassage);
-                httpServletRequest.setAttribute(getNAME(), name);
-                getServletContext().getRequestDispatcher(getCreatePage()).forward(httpServletRequest, httpServletResponse);
+                httpServletRequest.setAttribute(NAME, name);
+                getServletContext().getRequestDispatcher(CREATE_PAGE).forward(httpServletRequest, httpServletResponse);
             }
         } catch (NullPointerException ex) {
             System.err.println(ex);
-            getServletContext().getRequestDispatcher(getCreatePage()).forward(httpServletRequest, httpServletResponse);
+            getServletContext().getRequestDispatcher(CREATE_PAGE).forward(httpServletRequest, httpServletResponse);
         } catch (Exception ex) {
-            getServletContext().getRequestDispatcher(getCreatePage()).forward(httpServletRequest, httpServletResponse);
+            getServletContext().getRequestDispatcher(CREATE_PAGE).forward(httpServletRequest, httpServletResponse);
         }
     }
 }

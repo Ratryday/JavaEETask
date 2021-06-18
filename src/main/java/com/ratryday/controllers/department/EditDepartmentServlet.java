@@ -21,18 +21,18 @@ public class EditDepartmentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
-        int id = Integer.parseInt(httpServletRequest.getParameter(getID()));
+        int id = Integer.parseInt(httpServletRequest.getParameter(ID));
         Department department = DepartmentDB.selectOne(id);
-        httpServletRequest.setAttribute(getDEPARTMENTS(), department);
-        getServletContext().getRequestDispatcher(getEditPage()).forward(httpServletRequest, httpServletResponse);
+        httpServletRequest.setAttribute(DEPARTMENTS, department);
+        getServletContext().getRequestDispatcher(EDIT_PAGE).forward(httpServletRequest, httpServletResponse);
     }
 
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
         try {
-            String name = httpServletRequest.getParameter(getNAME());
-            int id = Integer.parseInt(httpServletRequest.getParameter(getID()));
+            String name = httpServletRequest.getParameter(NAME);
+            int id = Integer.parseInt(httpServletRequest.getParameter(ID));
             if (Validator.departmentNameValidator(name)) {
 
                 // Department Builder
@@ -42,9 +42,9 @@ public class EditDepartmentServlet extends HttpServlet {
                         .build();
 
                 DepartmentDB.update(department);
-                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + getEmptyChar());
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + EMPTY_CHAR);
             } else {
-                String errorMassage = getEmptyChar();
+                String errorMassage = EMPTY_CHAR;
                 System.out.println(errorMassage);
 
                 // Department Builder
@@ -53,13 +53,13 @@ public class EditDepartmentServlet extends HttpServlet {
                         .setName(name)
                         .build();
 
-                httpServletRequest.setAttribute(getDEPARTMENT(), department);
-                getServletContext().getRequestDispatcher(getEditPage()).forward(httpServletRequest, httpServletResponse);
+                httpServletRequest.setAttribute(DEPARTMENT, department);
+                getServletContext().getRequestDispatcher(EDIT_PAGE).forward(httpServletRequest, httpServletResponse);
             }
         } catch (NullPointerException ex) {
-            String errorMassage = getEmptyChar();
+            String errorMassage = EMPTY_CHAR;
             System.out.println(errorMassage);
-            int id = Integer.parseInt(httpServletRequest.getParameter(getID()));
+            int id = Integer.parseInt(httpServletRequest.getParameter(ID));
 
             // Department Builder
             Department department = new Department.DepartmentBuilder()
@@ -67,10 +67,10 @@ public class EditDepartmentServlet extends HttpServlet {
                     .setName(null)
                     .build();
 
-            httpServletRequest.setAttribute(getDEPARTMENT(), department);
-            getServletContext().getRequestDispatcher(getEditPage()).forward(httpServletRequest, httpServletResponse);
+            httpServletRequest.setAttribute(DEPARTMENT, department);
+            getServletContext().getRequestDispatcher(EDIT_PAGE).forward(httpServletRequest, httpServletResponse);
         } catch (Exception ex) {
-            getServletContext().getRequestDispatcher(getEditPage()).forward(httpServletRequest, httpServletResponse);
+            getServletContext().getRequestDispatcher(EDIT_PAGE).forward(httpServletRequest, httpServletResponse);
         }
     }
 }

@@ -24,18 +24,18 @@ public class DeleteEmployeeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
 
-        int idEmployee = Integer.parseInt(httpServletRequest.getParameter(getIdEmployee()));
-        int departmentID = Integer.parseInt(httpServletRequest.getParameter(getDepartmentId()));
-        String departmentName = httpServletRequest.getParameter(getDepartmentName());
+        int idEmployee = Integer.parseInt(httpServletRequest.getParameter(ID_EMPLOYEE));
+        int departmentID = Integer.parseInt(httpServletRequest.getParameter(DEPARTMENT_ID));
+        String departmentName = httpServletRequest.getParameter(DEPARTMENT_NAME);
 
         employeeDB.delete(idEmployee, departmentID);
 
         ArrayList<Employee> employee = employeeDB.select(departmentID);
 
-        httpServletRequest.setAttribute(getEMPLOYEE(), employee);
-        httpServletRequest.setAttribute(getDepartmentId(), departmentID);
-        httpServletRequest.setAttribute(getDepartmentName(), departmentName);
+        httpServletRequest.setAttribute(EMPLOYEE, employee);
+        httpServletRequest.setAttribute(DEPARTMENT_ID, departmentID);
+        httpServletRequest.setAttribute(DEPARTMENT_NAME, departmentName);
 
-        getServletContext().getRequestDispatcher(getEmployeeListPage()).forward(httpServletRequest, httpServletResponse);
+        getServletContext().getRequestDispatcher(EMPLOYEE_LIST_PAGE).forward(httpServletRequest, httpServletResponse);
     }
 }

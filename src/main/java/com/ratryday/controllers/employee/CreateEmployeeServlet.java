@@ -29,9 +29,9 @@ public class CreateEmployeeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
-        int departmentID = Integer.parseInt(httpServletRequest.getParameter(getDepartmentId()));
-        httpServletRequest.setAttribute(getDepartmentId(), departmentID);
-        getServletContext().getRequestDispatcher(getCreateEmployeePage()).forward(httpServletRequest, httpServletResponse);
+        int departmentID = Integer.parseInt(httpServletRequest.getParameter(DEPARTMENT_ID));
+        httpServletRequest.setAttribute(DEPARTMENT_ID, departmentID);
+        getServletContext().getRequestDispatcher(CREATE_EMPLOYEE_PAGE).forward(httpServletRequest, httpServletResponse);
 
     }
 
@@ -39,25 +39,25 @@ public class CreateEmployeeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
         try {
-            String employeeName = httpServletRequest.getParameter(getEmployeeName());
+            String employeeName = httpServletRequest.getParameter(EMPLOYEE_NAME);
 
             String hiringDate = null;
             LocalDate convertedToSQLHiringDate = null;
-            if (!httpServletRequest.getParameter(getHiringDate()).isEmpty()) {
-                hiringDate = httpServletRequest.getParameter(getHiringDate());
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getDateFormat());
+            if (!httpServletRequest.getParameter(HIRING_DATE).isEmpty()) {
+                hiringDate = httpServletRequest.getParameter(HIRING_DATE);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
                 java.sql.Date convertedHiringDate = (java.sql.Date) simpleDateFormat.parse(hiringDate);
                 convertedToSQLHiringDate = convertedHiringDate.toLocalDate();
             }
 
             Integer experience = null;
-            if (!httpServletRequest.getParameter(getEXPERIENCE()).isEmpty()) {
-                experience = Integer.parseInt(httpServletRequest.getParameter(getEXPERIENCE()));
+            if (!httpServletRequest.getParameter(EXPERIENCE).isEmpty()) {
+                experience = Integer.parseInt(httpServletRequest.getParameter(EXPERIENCE));
             }
 
-            String mailingAddress = httpServletRequest.getParameter(getMailingAddress());
+            String mailingAddress = httpServletRequest.getParameter(MAILING_ADDRESS);
 
-            int departmentID = Integer.parseInt(httpServletRequest.getParameter(getDepartmentId()));
+            int departmentID = Integer.parseInt(httpServletRequest.getParameter(DEPARTMENT_ID));
 
             if (validator.isValidator(employeeName, convertedToSQLHiringDate, experience, mailingAddress)) {
 
@@ -74,9 +74,9 @@ public class CreateEmployeeServlet extends HttpServlet {
 
                 ArrayList<Employee> employees = employeeDB.select(departmentID);
                 Department department = DepartmentDB.selectOne(departmentID);
-                httpServletRequest.setAttribute(getEMPLOYEE(), employees);
-                httpServletRequest.setAttribute(getDepartmentId(), department);
-                getServletContext().getRequestDispatcher(getEmployeeListPage()).forward(httpServletRequest, httpServletResponse);
+                httpServletRequest.setAttribute(EMPLOYEE, employees);
+                httpServletRequest.setAttribute(DEPARTMENT_ID, department);
+                getServletContext().getRequestDispatcher(EMPLOYEE_LIST_PAGE).forward(httpServletRequest, httpServletResponse);
             } else {
 
                 // Employee Builder
@@ -88,19 +88,19 @@ public class CreateEmployeeServlet extends HttpServlet {
                         .setDepartmentID(departmentID)
                         .build();
 
-                httpServletRequest.setAttribute(getEMPLOYEE(), employee);
-                httpServletRequest.setAttribute(getDepartmentId(), departmentID);
-                getServletContext().getRequestDispatcher(getCreateEmployeePage()).forward(httpServletRequest, httpServletResponse);
+                httpServletRequest.setAttribute(EMPLOYEE, employee);
+                httpServletRequest.setAttribute(DEPARTMENT_ID, departmentID);
+                getServletContext().getRequestDispatcher(CREATE_EMPLOYEE_PAGE).forward(httpServletRequest, httpServletResponse);
             }
 
         } catch (NullPointerException ex) {
-            String errorMassage = getEmptyChar();
+            String errorMassage = EMPTY_CHAR;
             System.out.println(errorMassage);
-            getServletContext().getRequestDispatcher(getCreateEmployeePage()).forward(httpServletRequest, httpServletResponse);
+            getServletContext().getRequestDispatcher(CREATE_EMPLOYEE_PAGE).forward(httpServletRequest, httpServletResponse);
         } catch (Exception ex) {
-            String errorMassage = getEmptyChar();
+            String errorMassage = EMPTY_CHAR;
             System.out.println(errorMassage);
-            getServletContext().getRequestDispatcher(getCreateEmployeePage()).forward(httpServletRequest, httpServletResponse);
+            getServletContext().getRequestDispatcher(CREATE_EMPLOYEE_PAGE).forward(httpServletRequest, httpServletResponse);
         }
     }
 }

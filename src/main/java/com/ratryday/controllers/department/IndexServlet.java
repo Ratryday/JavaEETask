@@ -13,16 +13,16 @@ import java.util.ArrayList;
 
 import static com.ratryday.controllers.Constants.*;
 
-@WebServlet(SLASH_INDEX)
+@WebServlet(EMPTY_CHAR)
 public class IndexServlet extends HttpServlet {
 
     private static final long serialVersionUID = -2434980003597933186L;
 
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         ArrayList<Department> department = DepartmentDB.select();
-        httpServletRequest.setAttribute(getDEPARTMENTS(), department);
+        httpServletRequest.setAttribute(DEPARTMENTS, department);
 
-        getServletContext().getRequestDispatcher(getIndexPage()).forward(httpServletRequest, httpServletResponse);
+        getServletContext().getRequestDispatcher(INDEX_PAGE).forward(httpServletRequest, httpServletResponse);
     }
 
 }

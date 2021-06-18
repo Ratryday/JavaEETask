@@ -23,7 +23,7 @@ public class DeleteDepartmentServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
-        int id = Integer.parseInt(httpServletRequest.getParameter(getID()));
+        int id = Integer.parseInt(httpServletRequest.getParameter(ID));
         ArrayList<Employee> employeeArrayList;
 
         employeeArrayList = employeeDB.select(id);
