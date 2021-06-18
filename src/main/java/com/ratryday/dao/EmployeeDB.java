@@ -22,23 +22,10 @@ public class EmployeeDB {
                     preparedStatement.setInt(1, id);
                     ResultSet resultSet = preparedStatement.executeQuery();
                     while (resultSet.next()) {
-                        int idEmployee = resultSet.getInt(1);
-                        String employeeName = resultSet.getString(2);
-                        LocalDate hiringDate = resultSet.getDate(3).toLocalDate();
-                        int experience = resultSet.getInt(4);
-                        String mailingAddress = resultSet.getString(5);
-                        int departmentID = resultSet.getInt(6);
 
-                        // Employee Builder
-                        Employee employee = new Employee.EmployeeBuilder()
-                                .setEmployeeName(employeeName)
-                                .setHiringDate(hiringDate)
-                                .setExperience(experience)
-                                .setMailingAddress(mailingAddress)
-                                .setDepartmentID(departmentID)
-                                .build();
+                        EmployeeDB employee = new EmployeeDB();
 
-                        employees.add(employee);
+                        employees.add(employee.getEmployeeFromResultSet(resultSet));
                     }
                 }
             }
@@ -59,21 +46,11 @@ public class EmployeeDB {
                     preparedStatement.setInt(1, id);
                     ResultSet resultSet = preparedStatement.executeQuery();
                     if (resultSet.next()) {
-                        int idEmployee = resultSet.getInt(1);
-                        String employeeName = resultSet.getString(2);
-                        LocalDate hiringDate = resultSet.getDate(3).toLocalDate();
-                        int experience = resultSet.getInt(4);
-                        String mailingAddress = resultSet.getString(5);
-                        int departmentID = resultSet.getInt(6);
 
-                        // Employee Builder
-                        employee = new Employee.EmployeeBuilder()
-                                .setEmployeeName(employeeName)
-                                .setHiringDate(hiringDate)
-                                .setExperience(experience)
-                                .setMailingAddress(mailingAddress)
-                                .setDepartmentID(departmentID)
-                                .build();
+                        EmployeeDB employeeDB = new EmployeeDB();
+
+                        employee = employeeDB.getEmployeeFromResultSet(resultSet);
+
                     }
                 }
             }
@@ -172,6 +149,27 @@ public class EmployeeDB {
             System.out.println(ex);
         }
         return 0;
+    }
+
+    private Employee getEmployeeFromResultSet(ResultSet resultSet) throws SQLException {
+
+        int idEmployee = resultSet.getInt(1);
+        String employeeName = resultSet.getString(2);
+        LocalDate hiringDate = resultSet.getDate(3).toLocalDate();
+        int experience = resultSet.getInt(4);
+        String mailingAddress = resultSet.getString(5);
+        int departmentID = resultSet.getInt(6);
+
+        // Employee Builder
+        Employee employee = new Employee.EmployeeBuilder()
+                .setEmployeeName(employeeName)
+                .setHiringDate(hiringDate)
+                .setExperience(experience)
+                .setMailingAddress(mailingAddress)
+                .setDepartmentID(departmentID)
+                .build();
+
+        return employee;
     }
 }
 
