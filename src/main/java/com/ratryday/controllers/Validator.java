@@ -1,35 +1,32 @@
 package com.ratryday.controllers;
 
-import com.ratryday.models.Department;
+import org.apache.commons.lang3.StringUtils;
 import com.ratryday.dao.DepartmentDB;
 import com.ratryday.dao.EmployeeDB;
-import com.ratryday.models.Employee;
 
-import java.time.LocalDate;
 import java.util.regex.Pattern;
+import java.time.LocalDate;
+
+import static com.ratryday.controllers.Constants.MAILING_ADDRESS_PATTERN;
 
 public class Validator {
 
+    private DepartmentDB departmentDB;
     private EmployeeDB employeeDB;
 
-    public static boolean departmentNameValidator(String departmentName) {
-        if (departmentName != null) {
-            if (departmentName == "") {
-                throw new NullPointerException("У департамента должно быть имя");
-            }
-            Department department = DepartmentDB.selectOne(departmentName);
-            return department == null;
+    public boolean isDepartmentNameValid(String departmentName) {
+        if (StringUtils.isEmpty(departmentName)) {
+            return false;
+        } else {
+            departmentDB.selectOne(departmentName);
+            return departmentDB == null;
         }
-        return false;
     }
 
-    public boolean isValidator(String employeeName, LocalDate employeeHiringDate, Integer employeeExperience, String employeeMailingAddress) {
+    public boolean isValid(String employeeName, LocalDate employeeHiringDate, Integer employeeExperience, String employeeMailingAddress) {
         boolean isValid = true;
-        if (employeeName != null) {
-            if (employeeName == "") {
-                isValid = false;
-            }
-        } else {
+
+        if (StringUtils.isEmpty(employeeName)) {
             isValid = false;
         }
 
@@ -38,29 +35,28 @@ public class Validator {
         }
 
         if (employeeExperience == null) {
-            if (employeeExperience >= 0) {
+            return false;
+        } else {
+            if (employeeExperience <= 0) {
                 isValid = false;
             }
         }
 
-        if (employeeMailingAddress != null) {
-            if (employeeMailingAddress == "") {
-                isValid = false;
-            } else {
-                Pattern mailingAddress
-                        = Pattern.compile("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
-                if (mailingAddress.matcher(employeeMailingAddress).matches()) {
-                    employeeDB.selectOne(employeeMailingAddress);
-                    if (employeeDB != null) {
-                        isValid = false;
-                    }
-                } else {
+        if (StringUtils.isEmpty(employeeMailingAddress)) {
+            isValid = false;
+        } else {
+            Pattern mailingAddress = Pattern.compile(MAILING_ADDRESS_PATTERN);
+            if (mailingAddress.matcher(employeeMailingAddress).matches()) {
+                employeeDB.selectOne(employeeMailingAddress);
+                if (employeeDB != null) {
                     isValid = false;
                 }
+            } else {
+                isValid = false;
             }
-        } else {
-            isValid = false;
         }
         return isValid;
     }
+
+
 }

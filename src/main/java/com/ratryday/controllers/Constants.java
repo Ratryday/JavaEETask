@@ -39,4 +39,5 @@ public class Constants {
     public static final String DEPARTMENT_NAME = "departmentName";
     public static final String MAILING_ADDRESS = "mailingAddress";
     public static final String OLD_DEPARTMENT_ID = "oldDepartmentID";
+    public static final String MAILING_ADDRESS_PATTERN = "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
 }

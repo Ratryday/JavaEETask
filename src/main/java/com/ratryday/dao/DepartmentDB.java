@@ -10,7 +10,7 @@ public class DepartmentDB {
     private static String username = "root";
     private static String password = "root";
 
-    public static ArrayList<Department> select() {
+    public ArrayList<Department> select() {
 
         ArrayList<Department> departments = new ArrayList<Department>();
         try {
@@ -39,7 +39,7 @@ public class DepartmentDB {
         return departments;
     }
 
-    public static Department selectOne(int id) {
+    public Department selectOne(int id) {
         Department department = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -66,7 +66,7 @@ public class DepartmentDB {
         return department;
     }
 
-    public static Department selectOne(String departmentName) {
+    public Department selectOne(String departmentName) {
         Department department = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -93,7 +93,7 @@ public class DepartmentDB {
         return department;
     }
 
-    public static int insert(Department department) {
+    public int insert(Department department) {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -112,7 +112,7 @@ public class DepartmentDB {
         return 0;
     }
 
-    public static int update(Department department) {
+    public int update(Department department) {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
@@ -132,7 +132,7 @@ public class DepartmentDB {
         return 0;
     }
 
-    public static int delete(int id) {
+    public int delete(int id) {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();

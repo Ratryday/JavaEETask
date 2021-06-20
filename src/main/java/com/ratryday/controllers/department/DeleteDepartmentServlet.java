@@ -4,11 +4,11 @@ import com.ratryday.dao.DepartmentDB;
 import com.ratryday.models.Employee;
 import com.ratryday.dao.EmployeeDB;
 
-import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -19,20 +19,18 @@ public class DeleteDepartmentServlet extends HttpServlet {
 
     private static final long serialVersionUID = 4135431999742926051L;
 
+    private DepartmentDB departmentDB;
     private EmployeeDB employeeDB;
 
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
         int id = Integer.parseInt(httpServletRequest.getParameter(ID));
         ArrayList<Employee> employeeArrayList;
-
         employeeArrayList = employeeDB.select(id);
-
         for (Employee emp : employeeArrayList) {
             employeeDB.delete(emp.getIdEmployee(), id);
         }
-
-        DepartmentDB.delete(id);
+        departmentDB.delete(id);
         httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
     }
 }
