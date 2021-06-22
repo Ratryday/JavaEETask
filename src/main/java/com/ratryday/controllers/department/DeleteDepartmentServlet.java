@@ -19,8 +19,8 @@ public class DeleteDepartmentServlet extends HttpServlet {
 
     private static final long serialVersionUID = 4135431999742926051L;
 
-    private DepartmentDB departmentDB;
-    private EmployeeDB employeeDB;
+    private DepartmentDB departmentDB = new DepartmentDB();
+    private EmployeeDB employeeDB = new EmployeeDB();
 
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {

@@ -18,7 +18,7 @@ public class DeleteEmployeeServlet extends HttpServlet {
 
     private static final long serialVersionUID = 5857248080450667250L;
 
-    private EmployeeDB employeeDB;
+    private EmployeeDB employeeDB = new EmployeeDB();
 
     @Override
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)

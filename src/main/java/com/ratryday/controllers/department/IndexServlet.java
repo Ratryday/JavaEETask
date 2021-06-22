@@ -18,14 +18,12 @@ public class IndexServlet extends HttpServlet {
 
     private static final long serialVersionUID = -2434980003597933186L;
 
-    private DepartmentDB departmentDB;
+    private DepartmentDB departmentDB = new DepartmentDB();
 
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
-
-        ArrayList<Department> department = departmentDB.select();
-        httpServletRequest.setAttribute(DEPARTMENTS, department);
-
+        ArrayList<Department> departments = departmentDB.select();
+        httpServletRequest.setAttribute(DEPARTMENTS, departments);
         getServletContext().getRequestDispatcher(INDEX_PAGE).forward(httpServletRequest, httpServletResponse);
     }
 

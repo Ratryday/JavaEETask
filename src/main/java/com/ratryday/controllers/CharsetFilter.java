@@ -1,7 +1,7 @@
 package com.ratryday.controllers;
 
-import javax.servlet.*;
 import java.io.IOException;
+import javax.servlet.*;
 
 public class CharsetFilter implements Filter {
 
@@ -17,10 +17,8 @@ public class CharsetFilter implements Filter {
         if (null == request.getCharacterEncoding()) {
             request.setCharacterEncoding(encoding);
         }
-
         response.setContentType("text/html; charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
-
         next.doFilter(request, response);
     }
 

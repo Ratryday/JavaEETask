@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <Resource
+            name="jdbc/companyPool"
+            type="javax.sql.DataSource"
+            username="root"
+            password="root"
+            driverClassName="com.mysql.cj.jdbc.Driver"
+            url="jdbc:mysql://localhost/departmentdb?DateTimeBehavior=convertToNull&amp;characterEncoding=UTF-8"
+            validationQuery="select 1"
+            maxActive="10"
+            maxIdle="4"/>
+</Context>

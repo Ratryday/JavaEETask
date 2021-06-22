@@ -23,11 +23,11 @@ public class CreateEmployeeServlet extends HttpServlet {
 
     private static final long serialVersionUID = -7952625273354502725L;
 
-    private DepartmentDB departmentDB;
-    private EmployeeDB employeeDB;
+    private DepartmentDB departmentDB = new DepartmentDB();
+    private EmployeeDB employeeDB = new EmployeeDB();
+    private Validator validator = new Validator();
     private String mailingAddress;
     private LocalDate hiringDate;
-    private Validator validator;
     private String employeeName;
     private Integer experience;
 

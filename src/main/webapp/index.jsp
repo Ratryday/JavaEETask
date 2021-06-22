@@ -16,19 +16,19 @@
     </form>
 <table  class="table" class="button">
 <tr><th>Название</th></tr>
-<c:forEach var="departments" items="${department}">
- <tr class="depart"><td class="departmentName">${departments.name}</td>
+<c:forEach var="department" items="${departments}">
+ <tr class="depart"><td class="departmentName">${department.name}</td>
     <td>
     <form class="button" method="get" action='<c:url value="/edit" />' style="display:inline;">
-        <input type="hidden" name="id" value="${departments.id}">
+        <input type="hidden" name="id" value="${department.id}">
         <input type="submit" value="Редактировать">
     </form>
     <form class="delete" method="post" action='<c:url value="/delete" />' style="display:inline;">
-        <input type="hidden" name="id" value="${departments.id}">
+        <input type="hidden" name="id" value="${department.id}">
         <input type="submit" value="Удалить">
     </form>
     <form class="button" method="get" action='<c:url value="/employeeList" />' style="display:inline;">
-        <input type="hidden" name="id" value="${departments.id}">
+        <input type="hidden" name="id" value="${department.id}">
         <input type="submit" value="Список сотрудников">
     </form>
  </td></tr>

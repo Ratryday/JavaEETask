@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,12 +22,12 @@ import static com.ratryday.controllers.Constants.*;
 @WebServlet(SLASH_EDIT_EMPLOYEE)
 public class EditEmployeeServlet extends HttpServlet {
 
-    private DepartmentDB departmentDB;
+    private DepartmentDB departmentDB = new DepartmentDB();
+    private EmployeeDB employeeDB = new EmployeeDB();
+    private Validator validator = new Validator();
     private String mailingAddress;
-    private EmployeeDB employeeDB;
     private LocalDate hiringDate;
     private String employeeName;
-    private Validator validator;
     private Integer experience;
 
     @Override

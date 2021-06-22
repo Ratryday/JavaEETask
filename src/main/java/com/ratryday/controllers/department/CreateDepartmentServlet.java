@@ -19,8 +19,8 @@ public class CreateDepartmentServlet extends HttpServlet {
 
     private static final long serialVersionUID = 7038334119164896401L;
 
-    private DepartmentDB departmentDB;
-    private Validator validator;
+    private DepartmentDB departmentDB = new DepartmentDB();
+    private Validator validator = new Validator();
 
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {

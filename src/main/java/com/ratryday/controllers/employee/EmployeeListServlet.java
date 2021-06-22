@@ -19,8 +19,8 @@ public class EmployeeListServlet extends HttpServlet {
 
     private static final long serialVersionUID = 8130011401819399469L;
 
-    private DepartmentDB departmentDB;
-    private EmployeeDB employeeDB;
+    private DepartmentDB departmentDB = new DepartmentDB();
+    private EmployeeDB employeeDB = new EmployeeDB();
 
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
