@@ -23,8 +23,10 @@ import static com.ratryday.controllers.Constants.*;
 public class EditEmployeeServlet extends HttpServlet {
 
     private DepartmentDB departmentDB = new DepartmentDB();
+    private Department department = new Department();
     private EmployeeDB employeeDB = new EmployeeDB();
     private Validator validator = new Validator();
+    private Employee employee = new Employee();
     private String mailingAddress;
     private LocalDate hiringDate;
     private String employeeName;
@@ -35,12 +37,12 @@ public class EditEmployeeServlet extends HttpServlet {
             throws ServletException, IOException {
         int idEmployee = Integer.parseInt(httpServletRequest.getParameter(ID_EMPLOYEE));
         int departmentID = Integer.parseInt(httpServletRequest.getParameter(DEPARTMENT_ID));
-        departmentDB.selectOne(departmentID);
-
+        department = departmentDB.selectOne(departmentID);
         ArrayList<Department> departments = departmentDB.select();
+        employee = employeeDB.selectOne(idEmployee);
 
-        httpServletRequest.setAttribute(EMPLOYEE, employeeDB.select(idEmployee));
-        httpServletRequest.setAttribute(DEPARTMENT, departmentDB);
+        httpServletRequest.setAttribute(EMPLOYEE, employee);
+        httpServletRequest.setAttribute(DEPARTMENT, department);
         httpServletRequest.setAttribute(DEPARTMENTS, departments);
         getServletContext().getRequestDispatcher(EDIT_EMPLOYEE_PAGE).forward(httpServletRequest, httpServletResponse);
 

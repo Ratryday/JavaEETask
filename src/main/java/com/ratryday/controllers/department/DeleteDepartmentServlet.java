@@ -21,11 +21,11 @@ public class DeleteDepartmentServlet extends HttpServlet {
 
     private DepartmentDB departmentDB = new DepartmentDB();
     private EmployeeDB employeeDB = new EmployeeDB();
+    private ArrayList<Employee> employeeArrayList = new ArrayList<>();
 
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
         int id = Integer.parseInt(httpServletRequest.getParameter(ID));
-        ArrayList<Employee> employeeArrayList;
         employeeArrayList = employeeDB.select(id);
         for (Employee emp : employeeArrayList) {
             employeeDB.delete(emp.getIdEmployee(), id);

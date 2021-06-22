@@ -10,7 +10,6 @@ import java.sql.*;
 public class EmployeeDB {
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private EmployeeDB employeeDB = new EmployeeDB();
     private Employee employee = new Employee();
 
 
@@ -18,6 +17,7 @@ public class EmployeeDB {
         ArrayList<Employee> employees = new ArrayList<Employee>();
         Connection connection = connectionPool.getConnection();
         String sql = "SELECT * FROM departmentdb.employee WHERE departmentID=?";
+        EmployeeDB employeeDB = new EmployeeDB();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
@@ -40,6 +40,7 @@ public class EmployeeDB {
     public Employee selectOne(int id) {
         Connection connection = connectionPool.getConnection();
         String sql = "SELECT * FROM departmentdb.employee WHERE idEmployee=?";
+        EmployeeDB employeeDB = new EmployeeDB();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
@@ -86,6 +87,7 @@ public class EmployeeDB {
     public int insert(Employee employee) {
         Connection connection = connectionPool.getConnection();
         String sql = "INSERT INTO departmentdb.employee (name, hiringDate, experience, mailingAddress, departmentID) Values (?, ?, ?, ?, ?)";
+        EmployeeDB employeeDB = new EmployeeDB();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             return employeeDB.getPreparedStatement(preparedStatement, connection, sql, employee).executeUpdate();
@@ -104,6 +106,7 @@ public class EmployeeDB {
     public int update(Employee employee) {
         Connection connection = connectionPool.getConnection();
         String sql = "UPDATE departmentdb.employee SET name = ?, hiringDate = ?, experience = ?, mailingAddress = ?, departmentID = ? WHERE idEmployee = ?";
+        EmployeeDB employeeDB = new EmployeeDB();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement = employeeDB.getPreparedStatement(preparedStatement, connection, sql, employee);

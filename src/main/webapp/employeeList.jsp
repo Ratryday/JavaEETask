@@ -10,10 +10,10 @@
 </head>
 <body>
   <div class="box">
-<h2>Список сотрудников ${department.name}</h2>
+<h2>Список сотрудников ${departments.name}</h2>
 <div class="table">
     <form class="button add" method="get" action='<c:url value="/createEmployee" />'>
-        <input type="hidden" name="departmentID" value="${department.id}">
+        <input type="hidden" name="departmentID" value="${departments.id}">
         <input type="submit" value="Добавить">
     </form>
     <form class="button" method="get" action='<c:url value="/" />'>
@@ -30,13 +30,13 @@
                         <td>
     <form class="button" method="get" action='<c:url value="/editEmployee" />'>
         <input type="hidden" name="idEmployee" value="${employees.idEmployee}">
-        <input type="hidden" name="departmentID" value="${department.id}">
+        <input type="hidden" name="departmentID" value="${departments.id}">
         <input type="submit" value="Редактировать">
     </form>
     <form class="button" method="post" action='<c:url value="/deleteEmployee" />'>
         <input type="hidden" name="idEmployee" value="${employees.idEmployee}">
-        <input type="hidden" name="departmentID" value="${department.id}">
-        <input type="hidden" name="departmentName" value="${department.name}">
+        <input type="hidden" name="departmentID" value="${departments.id}">
+        <input type="hidden" name="departmentName" value="${departments.name}">
         <input type="submit" value="Удалить">
     </form>
  </td></tr>
