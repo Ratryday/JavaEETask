@@ -1,34 +1,35 @@
 package com.ratryday.controllers.commands;
 
-import com.ratryday.dao.DepartmentDB;
-import com.ratryday.dao.EmployeeDB;
+import com.ratryday.dao.DepartmentDaoImpl;
+import com.ratryday.dao.EmployeeDaoImpl;
 import com.ratryday.models.Department;
+import com.ratryday.dao.DepartmentDao;
+import com.ratryday.dao.EmployeeDao;
 import com.ratryday.models.Employee;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import static com.ratryday.controllers.Constants.*;
 
 public class GetEmployeeListCommand extends FrontCommand {
 
-    private DepartmentDB departmentDB = new DepartmentDB();
+    private DepartmentDao departmentDao = new DepartmentDaoImpl();
+    private EmployeeDao employeeDao = new EmployeeDaoImpl();
     private Department department = new Department();
-    private EmployeeDB employeeDB = new EmployeeDB();
 
     @Override
     public void doGetProcess() throws ServletException, IOException {
         int departmentID = Integer.parseInt(httpServletRequest.getParameter(ID));
 
-        department = departmentDB.selectOne(departmentID);
-        ArrayList<Employee> employee = employeeDB.select(departmentID);
+        department = departmentDao.selectOne(departmentID);
+        List<Employee> employee = employeeDao.select(departmentID);
 
         httpServletRequest.setAttribute(EMPLOYEE, employee);
         httpServletRequest.setAttribute(DEPARTMENTS, department);
 
-        httpServletRequest.getServletContext().getRequestDispatcher(EMPLOYEE_LIST_PAGE)
-                .forward(httpServletRequest, httpServletResponse);
+        forward("employeeList");
     }
 
     @Override

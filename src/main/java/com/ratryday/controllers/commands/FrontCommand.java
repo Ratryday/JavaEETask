@@ -1,16 +1,16 @@
 package com.ratryday.controllers.commands;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.ServletContext;
 import java.io.IOException;
 
 public abstract class FrontCommand {
-    protected ServletContext servletContext;
-    protected HttpServletRequest httpServletRequest;
     protected HttpServletResponse httpServletResponse;
+    protected HttpServletRequest httpServletRequest;
+    protected ServletContext servletContext;
 
     public void init(
             ServletContext servletContext,

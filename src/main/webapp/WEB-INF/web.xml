@@ -23,7 +23,7 @@
 
   <servlet-mapping>
     <servlet-name>front-controller</servlet-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
 
   <filter-mapping>

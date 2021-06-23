@@ -1,25 +1,25 @@
 package com.ratryday.controllers.commands;
 
-import com.sun.org.apache.bcel.internal.generic.SWITCH;
 import org.apache.commons.lang3.StringUtils;
+import com.ratryday.dao.DepartmentDaoImpl;
 import com.ratryday.controllers.Validator;
-import com.ratryday.models.Department;
-import com.ratryday.dao.DepartmentDB;
+import com.ratryday.dao.EmployeeDaoImpl;
+import com.ratryday.dao.DepartmentDao;
+import com.ratryday.dao.EmployeeDao;
 import com.ratryday.models.Employee;
-import com.ratryday.dao.EmployeeDB;
 
 import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.List;
 
 import static com.ratryday.controllers.Constants.*;
 
 public class CreateEmployeeCommand extends FrontCommand {
 
-    private DepartmentDB departmentDB = new DepartmentDB();
-    private EmployeeDB employeeDB = new EmployeeDB();
+    private DepartmentDao departmentDao = new DepartmentDaoImpl();
+    private EmployeeDao employeeDao = new EmployeeDaoImpl();
     private Validator validator = new Validator();
     private Employee employee = new Employee();
     private String mailingAddress;
@@ -31,8 +31,7 @@ public class CreateEmployeeCommand extends FrontCommand {
     public void doGetProcess() throws ServletException, IOException {
         int departmentID = Integer.parseInt(httpServletRequest.getParameter(DEPARTMENT_ID));
         httpServletRequest.setAttribute(DEPARTMENT_ID, departmentID);
-        httpServletRequest.getServletContext().getRequestDispatcher(CREATE_EMPLOYEE_PAGE).
-                forward(httpServletRequest, httpServletResponse);
+        forward("createEmployee");
     }
 
     @Override
@@ -67,14 +66,17 @@ public class CreateEmployeeCommand extends FrontCommand {
                     .setDepartmentID(departmentID)
                     .build();
 
-            employeeDB.insert(employee);
+            employeeDao.insert(employee);
 
-            ArrayList<Employee> employees = employeeDB.select(departmentID);
-            departmentDB.selectOne(departmentID);
+            List<Employee> employees = employeeDao.select(departmentID);
+            departmentDao.selectOne(departmentID);
             httpServletRequest.setAttribute(EMPLOYEE, employees);
-            httpServletRequest.setAttribute(DEPARTMENT_ID, departmentDB);
-            httpServletRequest.getServletContext().getRequestDispatcher(EMPLOYEE_LIST_PAGE).
-                    forward(httpServletRequest, httpServletResponse);
+            httpServletRequest.setAttribute(DEPARTMENT_ID, departmentDao);
+
+            GetEmployeeListCommand getEmployeeListCommand = new GetEmployeeListCommand();
+            getEmployeeListCommand.doGetProcess();
+
+            //  forward("employeeList");
         } else {
             // Employee Builder
             employee = new Employee.EmployeeBuilder()
@@ -87,8 +89,7 @@ public class CreateEmployeeCommand extends FrontCommand {
 
             httpServletRequest.setAttribute(EMPLOYEE, employee);
             httpServletRequest.setAttribute(DEPARTMENT_ID, departmentID);
-            httpServletRequest.getServletContext().getRequestDispatcher(CREATE_EMPLOYEE_PAGE).
-                    forward(httpServletRequest, httpServletResponse);
+            forward("createEmployee");
         }
     }
 }

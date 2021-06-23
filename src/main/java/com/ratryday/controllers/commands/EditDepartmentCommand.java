@@ -1,9 +1,10 @@
 package com.ratryday.controllers.commands;
 
 import org.apache.commons.lang3.StringUtils;
+import com.ratryday.dao.DepartmentDaoImpl;
 import com.ratryday.controllers.Validator;
+import com.ratryday.dao.DepartmentDao;
 import com.ratryday.models.Department;
-import com.ratryday.dao.DepartmentDB;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
@@ -12,16 +13,15 @@ import static com.ratryday.controllers.Constants.*;
 
 public class EditDepartmentCommand extends FrontCommand{
 
-    private DepartmentDB departmentDB = new DepartmentDB();
+    private DepartmentDao departmentDao = new DepartmentDaoImpl();
     private Validator validator = new Validator();
 
     @Override
     public void doGetProcess() throws ServletException, IOException {
         int id = Integer.parseInt(httpServletRequest.getParameter(ID));
-        departmentDB.selectOne(id);
-        httpServletRequest.setAttribute(DEPARTMENTS, departmentDB);
-        httpServletRequest.getServletContext().getRequestDispatcher(EDIT_PAGE)
-                .forward(httpServletRequest, httpServletResponse);
+        departmentDao.selectOne(id);
+        httpServletRequest.setAttribute(DEPARTMENTS, departmentDao);
+        forward("edit");
     }
 
     @Override
@@ -35,8 +35,7 @@ public class EditDepartmentCommand extends FrontCommand{
                     .build();
 
             httpServletRequest.setAttribute(DEPARTMENT, department);
-            httpServletRequest.getServletContext().getRequestDispatcher(EDIT_PAGE)
-                    .forward(httpServletRequest, httpServletResponse);
+            forward("edit");
         }
 
         String name = httpServletRequest.getParameter(NAME);
@@ -48,8 +47,12 @@ public class EditDepartmentCommand extends FrontCommand{
                     .setName(name)
                     .build();
 
-            departmentDB.update(department);
-            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + EMPTY_CHAR);
+            departmentDao.update(department);
+
+            IndexCommand indexCommand = new IndexCommand();
+            indexCommand.doGetProcess();
+
+            //  forward("index");
         } else {
             // Department Builder
             Department department = new Department.DepartmentBuilder()
@@ -58,8 +61,7 @@ public class EditDepartmentCommand extends FrontCommand{
                     .build();
 
             httpServletRequest.setAttribute(DEPARTMENT, department);
-            httpServletRequest.getServletContext().getRequestDispatcher(EDIT_PAGE)
-                    .forward(httpServletRequest, httpServletResponse);
+            forward("edit");
         }
     }
 }

@@ -1,25 +1,26 @@
 package com.ratryday.controllers.commands;
 
 import org.apache.commons.lang3.StringUtils;
+import com.ratryday.dao.DepartmentDaoImpl;
 import com.ratryday.controllers.Validator;
+import com.ratryday.dao.EmployeeDaoImpl;
+import com.ratryday.dao.DepartmentDao;
 import com.ratryday.models.Department;
-import com.ratryday.dao.DepartmentDB;
+import com.ratryday.dao.EmployeeDao;
 import com.ratryday.models.Employee;
-import com.ratryday.dao.EmployeeDB;
 
 import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.List;
 
 import static com.ratryday.controllers.Constants.*;
-import static com.ratryday.controllers.Constants.EDIT_EMPLOYEE_PAGE;
 
 public class EditEmployeeCommand extends FrontCommand {
 
-    private DepartmentDB departmentDB = new DepartmentDB();
-    private EmployeeDB employeeDB = new EmployeeDB();
+    private DepartmentDao departmentDao = new DepartmentDaoImpl();
+    private EmployeeDao employeeDao = new EmployeeDaoImpl();
     private Department department = new Department();
     private Validator validator = new Validator();
     private Employee employee = new Employee();
@@ -32,15 +33,14 @@ public class EditEmployeeCommand extends FrontCommand {
     public void doGetProcess() throws ServletException, IOException {
         int idEmployee = Integer.parseInt(httpServletRequest.getParameter(ID_EMPLOYEE));
         int departmentID = Integer.parseInt(httpServletRequest.getParameter(DEPARTMENT_ID));
-        department = departmentDB.selectOne(departmentID);
-        ArrayList<Department> departments = departmentDB.select();
-        employee = employeeDB.selectOne(idEmployee);
+        department = departmentDao.selectOne(departmentID);
+        List<Department> departments = departmentDao.select();
+        employee = employeeDao.selectOne(idEmployee);
 
         httpServletRequest.setAttribute(EMPLOYEE, employee);
         httpServletRequest.setAttribute(DEPARTMENT, department);
         httpServletRequest.setAttribute(DEPARTMENTS, departments);
-        httpServletRequest.getServletContext().getRequestDispatcher(EDIT_EMPLOYEE_PAGE)
-                .forward(httpServletRequest, httpServletResponse);
+        forward("editEmployee");
     }
 
     @Override
@@ -80,16 +80,19 @@ public class EditEmployeeCommand extends FrontCommand {
                     .setDepartmentID(departmentID)
                     .build();
 
-            employeeDB.update(employee);
+            employeeDao.update(employee);
 
-            departmentDB.selectOne(oldDepartmentID);
-            ArrayList<Employee> employees = employeeDB.select(oldDepartmentID);
+            departmentDao.selectOne(oldDepartmentID);
+
+            List<Employee> employees = employeeDao.select(oldDepartmentID);
             httpServletRequest.setAttribute(EMPLOYEE, employees);
-            httpServletRequest.setAttribute(DEPARTMENT, departmentDB);
-            httpServletRequest.getServletContext().getRequestDispatcher(EMPLOYEE_LIST_PAGE)
-                    .forward(httpServletRequest, httpServletResponse);
-        } else {
+            httpServletRequest.setAttribute(DEPARTMENT, departmentDao);
 
+            GetEmployeeListCommand getEmployeeListCommand = new GetEmployeeListCommand();
+            getEmployeeListCommand.doGetProcess();
+
+            // forward("employeeList");
+        } else {
             // Employee Builder
             employee = new Employee.EmployeeBuilder()
                     .setEmployeeName(employeeName)
@@ -99,14 +102,14 @@ public class EditEmployeeCommand extends FrontCommand {
                     .setDepartmentID(departmentID)
                     .build();
 
-            departmentDB.selectOne(departmentID);
-            ArrayList<Department> departments = departmentDB.select();
+            departmentDao.selectOne(departmentID);
+
+            List<Department> departments = departmentDao.select();
 
             httpServletRequest.setAttribute(EMPLOYEE, employee);
-            httpServletRequest.setAttribute(DEPARTMENT, departmentDB);
+            httpServletRequest.setAttribute(DEPARTMENT, departmentDao);
             httpServletRequest.setAttribute(DEPARTMENTS, departments);
-            httpServletRequest.getServletContext().getRequestDispatcher(EMPLOYEE_LIST_PAGE)
-                    .forward(httpServletRequest, httpServletResponse);
+            forward("editEmployee");
         }
     }
 }

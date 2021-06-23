@@ -1,20 +1,23 @@
 package com.ratryday.controllers.commands;
 
-import com.ratryday.dao.DepartmentDB;
+import com.ratryday.dao.EmployeeDaoImpl;
+import com.ratryday.dao.DepartmentDaoImpl;
+import com.ratryday.dao.DepartmentDao;
+import com.ratryday.dao.EmployeeDao;
 import com.ratryday.models.Employee;
-import com.ratryday.dao.EmployeeDB;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.ratryday.controllers.Constants.ID;
 
 public class DeleteDepartmentCommand extends FrontCommand {
 
-    private ArrayList<Employee> employeeArrayList = new ArrayList<>();
-    private DepartmentDB departmentDB = new DepartmentDB();
-    private EmployeeDB employeeDB = new EmployeeDB();
+    private DepartmentDao departmentDao = new DepartmentDaoImpl();
+    private EmployeeDao employeeDao = new EmployeeDaoImpl();
+    private List<Employee> employeeList = new ArrayList<>();
 
     @Override
     public void doGetProcess() throws ServletException, IOException {
@@ -24,11 +27,15 @@ public class DeleteDepartmentCommand extends FrontCommand {
     @Override
     public void doPostProcess() throws ServletException, IOException {
         int id = Integer.parseInt(httpServletRequest.getParameter(ID));
-        employeeArrayList = employeeDB.select(id);
-        for (Employee emp : employeeArrayList) {
-            employeeDB.delete(emp.getIdEmployee(), id);
+        employeeList = employeeDao.select(id);
+        for (Employee emp : employeeList) {
+            employeeDao.delete(emp.getIdEmployee(), id);
         }
-        departmentDB.delete(id);
-        httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
+        departmentDao.delete(id);
+
+        IndexCommand indexCommand = new IndexCommand();
+        indexCommand.doGetProcess();
+
+        //  forward("index");
     }
 }

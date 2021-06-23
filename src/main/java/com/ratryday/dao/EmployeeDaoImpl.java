@@ -6,24 +6,25 @@ import com.ratryday.models.Employee;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.*;
+import java.util.List;
 
-public class EmployeeDB {
+public class EmployeeDaoImpl implements EmployeeDao {
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private Employee employee = new Employee();
 
-
-    public ArrayList<Employee> select(int id) {
-        ArrayList<Employee> employees = new ArrayList<Employee>();
+    @Override
+    public List<Employee> select(int id) {
+        List<Employee> employees = new ArrayList<Employee>();
         Connection connection = connectionPool.getConnection();
         String sql = "SELECT * FROM departmentdb.employee WHERE departmentID=?";
-        EmployeeDB employeeDB = new EmployeeDB();
+        EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                employees.add(employeeDB.getEmployeeFromResultSet(resultSet));
+                employees.add(employeeDaoImpl.getEmployeeFromResultSet(resultSet));
             }
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
@@ -37,16 +38,17 @@ public class EmployeeDB {
         return employees;
     }
 
+    @Override
     public Employee selectOne(int id) {
         Connection connection = connectionPool.getConnection();
         String sql = "SELECT * FROM departmentdb.employee WHERE idEmployee=?";
-        EmployeeDB employeeDB = new EmployeeDB();
+        EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                employee = employeeDB.getEmployeeFromResultSet(resultSet);
+                employee = employeeDaoImpl.getEmployeeFromResultSet(resultSet);
             }
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
@@ -60,6 +62,7 @@ public class EmployeeDB {
         return employee;
     }
 
+    @Override
     public Employee selectOne(String mail) {
         Connection connection = connectionPool.getConnection();
         String sql = "SELECT * FROM departmentdb.employee WHERE mailingAddress=?";
@@ -84,13 +87,14 @@ public class EmployeeDB {
         return employee;
     }
 
+    @Override
     public int insert(Employee employee) {
         Connection connection = connectionPool.getConnection();
         String sql = "INSERT INTO departmentdb.employee (name, hiringDate, experience, mailingAddress, departmentID) Values (?, ?, ?, ?, ?)";
-        EmployeeDB employeeDB = new EmployeeDB();
+        EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            return employeeDB.getPreparedStatement(preparedStatement, connection, sql, employee).executeUpdate();
+            return employeeDaoImpl.getPreparedStatement(preparedStatement, connection, sql, employee).executeUpdate();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         } finally {
@@ -103,13 +107,14 @@ public class EmployeeDB {
         return 0;
     }
 
+    @Override
     public int update(Employee employee) {
         Connection connection = connectionPool.getConnection();
         String sql = "UPDATE departmentdb.employee SET name = ?, hiringDate = ?, experience = ?, mailingAddress = ?, departmentID = ? WHERE idEmployee = ?";
-        EmployeeDB employeeDB = new EmployeeDB();
+        EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement = employeeDB.getPreparedStatement(preparedStatement, connection, sql, employee);
+            preparedStatement = employeeDaoImpl.getPreparedStatement(preparedStatement, connection, sql, employee);
             preparedStatement.setInt(6, employee.getIdEmployee());
             return preparedStatement.executeUpdate();
         } catch (SQLException sqlException) {
@@ -124,6 +129,7 @@ public class EmployeeDB {
         return 0;
     }
 
+    @Override
     public int delete(int idEmployee, int departmentID) {
         Connection connection = connectionPool.getConnection();
         String sql = "DELETE FROM employee WHERE idEmployee = ? AND departmentID = ?";

@@ -5,14 +5,16 @@ import com.ratryday.models.Department;
 
 import java.util.ArrayList;
 import java.sql.*;
+import java.util.List;
 
-public class DepartmentDB {
+public class DepartmentDaoImpl implements DepartmentDao {
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private Department department = new Department();
 
-    public ArrayList<Department> select() {
-        ArrayList<Department> departments = new ArrayList<Department>();
+    @Override
+    public List<Department> select() {
+        List<Department> departments = new ArrayList<Department>();
         Connection connection = connectionPool.getConnection();
         try {
             Statement statement = connection.createStatement();
@@ -40,6 +42,7 @@ public class DepartmentDB {
         return departments;
     }
 
+    @Override
     public Department selectOne(int id) {
         Connection connection = connectionPool.getConnection();
         String sql = "SELECT * FROM department WHERE id=?";
@@ -68,6 +71,7 @@ public class DepartmentDB {
         return department;
     }
 
+    @Override
     public Department selectOne(String departmentName) {
         Connection connection = connectionPool.getConnection();
         String sql = "SELECT * FROM department WHERE name=?";
@@ -96,6 +100,7 @@ public class DepartmentDB {
         return department;
     }
 
+    @Override
     public int insert(Department department) {
         Connection connection = connectionPool.getConnection();
         String sql = "INSERT INTO department (name) Values (?)";
@@ -115,6 +120,7 @@ public class DepartmentDB {
         return 0;
     }
 
+    @Override
     public int update(Department department) {
         Connection connection = connectionPool.getConnection();
         String sql = "UPDATE department SET name = ? WHERE id = ?";
@@ -135,6 +141,7 @@ public class DepartmentDB {
         return 0;
     }
 
+    @Override
     public int delete(int id) {
         Connection connection = connectionPool.getConnection();
         String sql = "DELETE FROM department WHERE id = ?";

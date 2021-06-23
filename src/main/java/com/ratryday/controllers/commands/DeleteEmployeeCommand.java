@@ -1,17 +1,18 @@
 package com.ratryday.controllers.commands;
 
+import com.ratryday.dao.EmployeeDao;
 import com.ratryday.models.Employee;
-import com.ratryday.dao.EmployeeDB;
+import com.ratryday.dao.EmployeeDaoImpl;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import static com.ratryday.controllers.Constants.*;
 
 public class DeleteEmployeeCommand extends FrontCommand {
 
-    private EmployeeDB employeeDB = new EmployeeDB();
+    private EmployeeDao employeeDao = new EmployeeDaoImpl();
 
     @Override
     public void doGetProcess() throws ServletException, IOException {
@@ -24,15 +25,17 @@ public class DeleteEmployeeCommand extends FrontCommand {
         int departmentID = Integer.parseInt(httpServletRequest.getParameter(DEPARTMENT_ID));
         String departmentName = httpServletRequest.getParameter(DEPARTMENT_NAME);
 
-        employeeDB.delete(idEmployee, departmentID);
+        employeeDao.delete(idEmployee, departmentID);
 
-        ArrayList<Employee> employee = employeeDB.select(departmentID);
+        List<Employee> employee = employeeDao.select(departmentID);
 
         httpServletRequest.setAttribute(EMPLOYEE, employee);
         httpServletRequest.setAttribute(DEPARTMENT_ID, departmentID);
         httpServletRequest.setAttribute(DEPARTMENT_NAME, departmentName);
 
-        httpServletRequest.getServletContext().getRequestDispatcher(EMPLOYEE_LIST_PAGE)
-                .forward(httpServletRequest, httpServletResponse);
+        GetEmployeeListCommand getEmployeeListCommand = new GetEmployeeListCommand();
+        getEmployeeListCommand.doGetProcess();
+
+        //  forward("employeeList");
     }
 }

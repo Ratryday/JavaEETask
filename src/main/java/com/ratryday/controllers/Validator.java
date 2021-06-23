@@ -1,8 +1,10 @@
 package com.ratryday.controllers;
 
+import com.ratryday.dao.DepartmentDaoImpl;
+import com.ratryday.dao.EmployeeDaoImpl;
 import org.apache.commons.lang3.StringUtils;
-import com.ratryday.dao.DepartmentDB;
-import com.ratryday.dao.EmployeeDB;
+import com.ratryday.dao.DepartmentDao;
+import com.ratryday.dao.EmployeeDao;
 
 import java.util.regex.Pattern;
 import java.time.LocalDate;
@@ -11,15 +13,15 @@ import static com.ratryday.controllers.Constants.MAILING_ADDRESS_PATTERN;
 
 public class Validator {
 
-    private DepartmentDB departmentDB;
-    private EmployeeDB employeeDB;
+    private DepartmentDao departmentDao = new DepartmentDaoImpl();
+    private EmployeeDao employeeDao = new EmployeeDaoImpl();
 
     public boolean isDepartmentNameValid(String departmentName) {
         if (StringUtils.isEmpty(departmentName)) {
             return false;
         } else {
-            departmentDB.selectOne(departmentName);
-            return departmentDB == null;
+            departmentDao.selectOne(departmentName);
+            return departmentDao == null;
         }
     }
 
@@ -47,8 +49,8 @@ public class Validator {
         } else {
             Pattern mailingAddress = Pattern.compile(MAILING_ADDRESS_PATTERN);
             if (mailingAddress.matcher(employeeMailingAddress).matches()) {
-                employeeDB.selectOne(employeeMailingAddress);
-                if (employeeDB != null) {
+                employeeDao.selectOne(employeeMailingAddress);
+                if (employeeDao != null) {
                     isValid = false;
                 }
             } else {
