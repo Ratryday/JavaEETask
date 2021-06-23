@@ -11,7 +11,8 @@
 <body>
     <div class="box">
 <h2>Список департаментов</h2>
- <form class="button add" method="get" action='<c:url value="/create" />'>
+ <form class="button add" method="get">
+        <input type="hidden" name="command" value="CreateDepartment">
         <input type="submit" value="Добавить">
     </form>
 <table  class="table" class="button">

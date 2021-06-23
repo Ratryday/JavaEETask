@@ -5,6 +5,8 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <!--CharsetFilter start-->
 
+  <display-name>Archetype Created Web Application</display-name>
+
   <filter>
     <filter-name>CharsetFilter</filter-name>
     <filter-class>com.ratryday.controllers.CharsetFilter</filter-class>
@@ -14,11 +16,20 @@
     </init-param>
   </filter>
 
+  <servlet>
+    <servlet-name>front-controller</servlet-name>
+    <servlet-class>com.ratryday.controllers.FrontControllerServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>front-controller</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
+
   <filter-mapping>
     <filter-name>CharsetFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  <display-name>Archetype Created Web Application</display-name>
 
   <error-page>
     <error-code>404</error-code>

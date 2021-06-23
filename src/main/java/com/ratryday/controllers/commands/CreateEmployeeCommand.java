@@ -1,29 +1,24 @@
-package com.ratryday.controllers.employee;
+package com.ratryday.controllers.commands;
 
+import com.sun.org.apache.bcel.internal.generic.SWITCH;
+import org.apache.commons.lang3.StringUtils;
 import com.ratryday.controllers.Validator;
 import com.ratryday.models.Department;
 import com.ratryday.dao.DepartmentDB;
 import com.ratryday.models.Employee;
 import com.ratryday.dao.EmployeeDB;
-import org.apache.commons.lang3.StringUtils;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.annotation.WebServlet;
+import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static com.ratryday.controllers.Constants.*;
 
-@WebServlet(SLASH_EDIT_EMPLOYEE)
-public class EditEmployeeServlet extends HttpServlet {
+public class CreateEmployeeCommand extends FrontCommand {
 
     private DepartmentDB departmentDB = new DepartmentDB();
-    private Department department = new Department();
     private EmployeeDB employeeDB = new EmployeeDB();
     private Validator validator = new Validator();
     private Employee employee = new Employee();
@@ -33,26 +28,15 @@ public class EditEmployeeServlet extends HttpServlet {
     private Integer experience;
 
     @Override
-    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
-            throws ServletException, IOException {
-        int idEmployee = Integer.parseInt(httpServletRequest.getParameter(ID_EMPLOYEE));
+    public void doGetProcess() throws ServletException, IOException {
         int departmentID = Integer.parseInt(httpServletRequest.getParameter(DEPARTMENT_ID));
-        department = departmentDB.selectOne(departmentID);
-        ArrayList<Department> departments = departmentDB.select();
-        employee = employeeDB.selectOne(idEmployee);
-
-        httpServletRequest.setAttribute(EMPLOYEE, employee);
-        httpServletRequest.setAttribute(DEPARTMENT, department);
-        httpServletRequest.setAttribute(DEPARTMENTS, departments);
-        getServletContext().getRequestDispatcher(EDIT_EMPLOYEE_PAGE).forward(httpServletRequest, httpServletResponse);
-
+        httpServletRequest.setAttribute(DEPARTMENT_ID, departmentID);
+        httpServletRequest.getServletContext().getRequestDispatcher(CREATE_EMPLOYEE_PAGE).
+                forward(httpServletRequest, httpServletResponse);
     }
 
     @Override
-    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
-            throws ServletException, IOException {
-        int id = Integer.parseInt(httpServletRequest.getParameter(ID_EMPLOYEE));
-
+    public void doPostProcess() throws ServletException, IOException {
         if (!StringUtils.isEmpty(httpServletRequest.getParameter(EMPLOYEE_NAME))) {
             employeeName = httpServletRequest.getParameter(EMPLOYEE_NAME);
         }
@@ -72,13 +56,10 @@ public class EditEmployeeServlet extends HttpServlet {
 
         int departmentID = Integer.parseInt(httpServletRequest.getParameter(DEPARTMENT_ID));
 
-        int oldDepartmentID = Integer.parseInt(httpServletRequest.getParameter(OLD_DEPARTMENT_ID));
-
         if (validator.isValid(employeeName, hiringDate, experience, mailingAddress)) {
 
             // Employee Builder
-            Employee employee = new Employee.EmployeeBuilder()
-                    .setIdEmployee(id)
+            employee = new Employee.EmployeeBuilder()
                     .setEmployeeName(employeeName)
                     .setHiringDate(hiringDate)
                     .setExperience(experience)
@@ -86,34 +67,28 @@ public class EditEmployeeServlet extends HttpServlet {
                     .setDepartmentID(departmentID)
                     .build();
 
-            employeeDB.update(employee);
+            employeeDB.insert(employee);
 
-            departmentDB.selectOne(oldDepartmentID);
-            ArrayList<Employee> employees = employeeDB.select(oldDepartmentID);
-
-            httpServletRequest.setAttribute(EMPLOYEE, employees);
-            httpServletRequest.setAttribute(DEPARTMENT, departmentDB);
-
-            getServletContext().getRequestDispatcher(EMPLOYEE_LIST_PAGE).forward(httpServletRequest,
-                    httpServletResponse);
-        } else {
-
-            // Employee Builder
-            Employee employee = new Employee.EmployeeBuilder()
-                    .setEmployeeName(employeeName)
-                    .setHiringDate(hiringDate)
-                    .setExperience(experience)
-                    .setMailingAddress(mailingAddress)
-                    .setDepartmentID(departmentID)
-                    .build();
-
+            ArrayList<Employee> employees = employeeDB.select(departmentID);
             departmentDB.selectOne(departmentID);
-            ArrayList<Department> departments = departmentDB.select();
+            httpServletRequest.setAttribute(EMPLOYEE, employees);
+            httpServletRequest.setAttribute(DEPARTMENT_ID, departmentDB);
+            httpServletRequest.getServletContext().getRequestDispatcher(EMPLOYEE_LIST_PAGE).
+                    forward(httpServletRequest, httpServletResponse);
+        } else {
+            // Employee Builder
+            employee = new Employee.EmployeeBuilder()
+                    .setEmployeeName(employeeName)
+                    .setHiringDate(hiringDate)
+                    .setExperience(experience)
+                    .setMailingAddress(mailingAddress)
+                    .setDepartmentID(departmentID)
+                    .build();
 
             httpServletRequest.setAttribute(EMPLOYEE, employee);
-            httpServletRequest.setAttribute(DEPARTMENT, departmentDB);
-            httpServletRequest.setAttribute(DEPARTMENTS, departments);
-            getServletContext().getRequestDispatcher(EMPLOYEE_LIST_PAGE).forward(httpServletRequest, httpServletResponse);
+            httpServletRequest.setAttribute(DEPARTMENT_ID, departmentID);
+            httpServletRequest.getServletContext().getRequestDispatcher(CREATE_EMPLOYEE_PAGE).
+                    forward(httpServletRequest, httpServletResponse);
         }
     }
 }

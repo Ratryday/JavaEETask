@@ -1,30 +1,28 @@
-package com.ratryday.controllers.department;
+package com.ratryday.controllers.commands;
 
 import com.ratryday.dao.DepartmentDB;
 import com.ratryday.models.Employee;
 import com.ratryday.dao.EmployeeDB;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static com.ratryday.controllers.Constants.*;
+import static com.ratryday.controllers.Constants.ID;
 
-@WebServlet(SLASH_DELETE)
-public class DeleteDepartmentServlet extends HttpServlet {
+public class DeleteDepartmentCommand extends FrontCommand {
 
-    private static final long serialVersionUID = 4135431999742926051L;
-
+    private ArrayList<Employee> employeeArrayList = new ArrayList<>();
     private DepartmentDB departmentDB = new DepartmentDB();
     private EmployeeDB employeeDB = new EmployeeDB();
-    private ArrayList<Employee> employeeArrayList = new ArrayList<>();
 
-    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
-            throws ServletException, IOException {
+    @Override
+    public void doGetProcess() throws ServletException, IOException {
+
+    }
+
+    @Override
+    public void doPostProcess() throws ServletException, IOException {
         int id = Integer.parseInt(httpServletRequest.getParameter(ID));
         employeeArrayList = employeeDB.select(id);
         for (Employee emp : employeeArrayList) {

@@ -6,6 +6,6 @@
 </head>
 <body>
 <h2>Page not found</h2>
-<a href='<c:url value="/" />'>Edit</a>
+<a href="/JavaEETest/front-controller/?command=Index" />Edit</a>
 </body>
 </html>
