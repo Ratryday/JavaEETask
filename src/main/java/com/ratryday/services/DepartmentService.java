@@ -23,7 +23,7 @@ public class DepartmentService {
 
     public boolean isCreate(HttpServletRequest httpServletRequest) {
         // Get request parameters
-        if (StringUtils.isEmpty(httpServletRequest.getParameter(NAME))) {
+        if (!StringUtils.isEmpty(httpServletRequest.getParameter(NAME))) {
             name = httpServletRequest.getParameter(NAME);
         }
 

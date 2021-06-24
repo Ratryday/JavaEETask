@@ -6,6 +6,7 @@ public class Constants {
     public static final String EDIT_PAGE = "edit";
     public static final String INDEX_PAGE = "index";
     public static final String CREATE_PAGE = "create";
+    public static final String DEPARTMENT_LIST_PAGE = "departmentList";
 
     // Employee page constants
     public static final String EMPLOYEE_LIST_PAGE = "employeeList";

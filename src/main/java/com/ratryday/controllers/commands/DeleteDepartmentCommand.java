@@ -3,7 +3,7 @@ package com.ratryday.controllers.commands;
 import javax.servlet.ServletException;
 import java.io.IOException;
 
-import static com.ratryday.controllers.Constants.INDEX_PAGE;
+import static com.ratryday.controllers.Constants.DEPARTMENT_LIST_PAGE;
 
 public class DeleteDepartmentCommand extends FrontCommand {
 
@@ -19,6 +19,6 @@ public class DeleteDepartmentCommand extends FrontCommand {
 
         // Get department list and return to employeeList.jsp
         departmentService.getList(httpServletRequest);
-        forward(INDEX_PAGE);
+        forward(DEPARTMENT_LIST_PAGE);
     }
 }

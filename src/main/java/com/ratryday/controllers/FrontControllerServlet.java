@@ -11,10 +11,14 @@ import java.io.IOException;
 
 public class FrontControllerServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 3217561200041947857L;
+
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
+        System.out.println(1);
         FrontCommand command = getCommand(httpServletRequest);
+        System.out.println(command);
         command.init(getServletContext(), httpServletRequest, httpServletResponse);
         command.doGetProcess();
     }
@@ -22,7 +26,9 @@ public class FrontControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
+        System.out.println(2);
         FrontCommand command = getCommand(httpServletRequest);
+        System.out.println(command);
         command.init(getServletContext(), httpServletRequest, httpServletResponse);
         command.doPostProcess();
     }

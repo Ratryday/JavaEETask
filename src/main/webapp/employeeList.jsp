@@ -17,7 +17,8 @@
             <input type="hidden" name="departmentID" value="${departments.id}">
             <input type="submit" value="Добавить">
         </form>
-        <form class="button" method="get" action='<c:url value="/" />'>
+        <form class="button" method="get">
+            <input type="hidden" name="command" value="Index">
             <input type="submit" value="Список департаментов">
         </form>
     </div>

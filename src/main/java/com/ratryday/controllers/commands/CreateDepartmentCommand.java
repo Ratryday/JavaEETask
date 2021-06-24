@@ -16,9 +16,9 @@ public class CreateDepartmentCommand extends FrontCommand {
     public void doPostProcess() throws ServletException, IOException {
         if (departmentService.isCreate(httpServletRequest)) {
             departmentService.getList(httpServletRequest);
-            forward(INDEX_PAGE);
+            forward(DEPARTMENT_LIST_PAGE);
         } else {
-            forward(CREATE_PAGE);
+            forward(DEPARTMENT_LIST_PAGE);
         }
     }
 }

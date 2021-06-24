@@ -20,8 +20,7 @@ public class Validator {
         if (StringUtils.isEmpty(departmentName)) {
             return false;
         } else {
-            departmentDao.selectOne(departmentName);
-            return departmentDao == null;
+            return departmentDao.selectOne(departmentName).getName() == null;
         }
     }
 
@@ -49,8 +48,7 @@ public class Validator {
         } else {
             Pattern mailingAddress = Pattern.compile(MAILING_ADDRESS_PATTERN);
             if (mailingAddress.matcher(employeeMailingAddress).matches()) {
-                employeeDao.selectOne(employeeMailingAddress);
-                if (employeeDao != null) {
+                if (employeeDao.selectOne(employeeMailingAddress).getMailingAddress() != null) {
                     isValid = false;
                 }
             } else {

@@ -18,9 +18,9 @@ public class EditDepartmentCommand extends FrontCommand{
     public void doPostProcess() throws ServletException, IOException {
         if (departmentService.isUpdate(httpServletRequest)) {
             departmentService.getList(httpServletRequest);
-            forward(INDEX_PAGE);
+            forward(DEPARTMENT_LIST_PAGE);
         } else {
-            forward(EDIT_PAGE);
+            forward(DEPARTMENT_LIST_PAGE);
         }
     }
 }
