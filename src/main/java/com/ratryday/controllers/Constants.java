@@ -3,30 +3,21 @@ package com.ratryday.controllers;
 public class Constants {
 
     // Department page constants
-    public static final String EDIT_PAGE = "/edit.jsp";
-    public static final String INDEX_PAGE = "/index.jsp";
-    public static final String CREATE_PAGE = "/create.jsp";
-
-    // Departments constants
-    public static final String SLASH_EDIT = "/edit";
-    public static final String SLASH_CREATE = "/create";
-    public static final String SLASH_DELETE = "/delete";
+    public static final String EDIT_PAGE = "edit";
+    public static final String INDEX_PAGE = "index";
+    public static final String CREATE_PAGE = "create";
 
     // Employee page constants
-    public static final String EMPLOYEE_LIST_PAGE = "/employeeList.jsp";
-    public static final String EDIT_EMPLOYEE_PAGE = "/editEmployee.jsp";
-    public static final String CREATE_EMPLOYEE_PAGE = "/createEmployee.jsp";
+    public static final String EMPLOYEE_LIST_PAGE = "employeeList";
+    public static final String EDIT_EMPLOYEE_PAGE = "editEmployee";
+    public static final String CREATE_EMPLOYEE_PAGE = "createEmployee";
 
-    // Employee constants
-    public static final String SLASH_EDIT_EMPLOYEE = "/editEmployee";
-    public static final String SLASH_CREATE_EMPLOYEE = "/createEmployee";
-    public static final String SLASH_DELETE_EMPLOYEE = "/deleteEmployee";
-    public static final String SLASH_EMPLOYEE_LIST = "/employeeList";
+    // Another page
+    public static final String NOT_FOUND_PAGE = "notfound";
 
     // Data constants
     public static final String ID = "id";
     public static final String NAME = "name";
-    public static final String EMPTY_CHAR = "";
     public static final String EMPLOYEE = "employee";
     public static final String DEPARTMENT = "department";
     public static final String EXPERIENCE = "experience";

@@ -20,15 +20,18 @@
 <c:forEach var="department" items="${departments}">
  <tr class="depart"><td class="departmentName">${department.name}</td>
     <td>
-    <form class="button" method="get" action='<c:url value="/edit" />' style="display:inline;">
+    <form class="button" method="get" style="display:inline;">
+        <input type="hidden" name="command" value="EditDepartment">
         <input type="hidden" name="id" value="${department.id}">
         <input type="submit" value="Редактировать">
     </form>
-    <form class="delete" method="post" action='<c:url value="/delete" />' style="display:inline;">
+    <form class="delete" method="post" style="display:inline;">
+        <input type="hidden" name="command" value="DeleteDepartment">
         <input type="hidden" name="id" value="${department.id}">
         <input type="submit" value="Удалить">
     </form>
-    <form class="button" method="get" action='<c:url value="/employeeList" />' style="display:inline;">
+    <form class="button" method="get" style="display:inline;">
+        <input type="hidden" name="command" value="GetEmployeeList">
         <input type="hidden" name="id" value="${department.id}">
         <input type="submit" value="Список сотрудников">
     </form>

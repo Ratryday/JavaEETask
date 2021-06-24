@@ -1,5 +1,8 @@
 package com.ratryday.controllers.commands;
 
+import com.ratryday.services.DepartmentService;
+import com.ratryday.services.EmployeeService;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.RequestDispatcher;
@@ -8,6 +11,9 @@ import javax.servlet.ServletContext;
 import java.io.IOException;
 
 public abstract class FrontCommand {
+
+    protected DepartmentService departmentService = new DepartmentService();
+    protected EmployeeService employeeService = new EmployeeService();
     protected HttpServletResponse httpServletResponse;
     protected HttpServletRequest httpServletRequest;
     protected ServletContext servletContext;

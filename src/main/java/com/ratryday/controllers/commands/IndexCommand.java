@@ -1,23 +1,16 @@
 package com.ratryday.controllers.commands;
 
-import com.ratryday.models.Department;
-import com.ratryday.dao.DepartmentDaoImpl;
-
 import javax.servlet.ServletException;
 import java.io.IOException;
-import java.util.List;
 
-import static com.ratryday.controllers.Constants.DEPARTMENTS;
+import static com.ratryday.controllers.Constants.INDEX_PAGE;
 
-    public class IndexCommand extends FrontCommand{
-
-    private DepartmentDaoImpl departmentDao = new DepartmentDaoImpl();
+public class IndexCommand extends FrontCommand{
 
     @Override
     public void doGetProcess() throws ServletException, IOException {
-        List<Department> departments = departmentDao.select();
-        httpServletRequest.setAttribute(DEPARTMENTS, departments);
-        forward("index");
+        employeeService.getList(httpServletRequest);
+        forward(INDEX_PAGE);
     }
 
     @Override
